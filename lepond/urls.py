@@ -19,6 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users/', include(('users.urls', 'users'), namespace='users')),  # users 앱의 네임스페이스 지정
-    path('shop/', include(('shop.urls', 'shop'), namespace='shop')),      # shop 앱의 네임스페이스 지정
+    path('main/', include(('main.urls', 'main'), namespace='main')),
+    path('users/', include(('users.urls', 'users'), namespace='users')), 
+    path('shop/', include(('shop.urls', 'shop'), namespace='shop')),  
 ]
