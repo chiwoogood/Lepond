@@ -21,26 +21,29 @@
             </button>
             <nav class="nav">
                 <ul class="nav-links">
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="{% url 'main:main' %}">MAIN</a></li>
+                    <li><a href="{% url 'shop:items' %}">SHOP</a></li>
+                    <li><a href="{% url 'main:about' %}">ABOUT</a></li>
+                    <li><a href="{% url 'community:board' %}">COMMUNITY</a></li>
                 </ul>
                 <ul class="nav-users">
-                    <li><a href="#profile1">User 1</a></li>
-                    <li><a href="#profile2">User 2</a></li>
-                    <li><a href="#profile3">User 3</a></li>
-                    <li><a href="#profile4">User 4</a></li>
+                    <li><a href="#profile1">SIGN IN</a></li>
+                    <li><a href="#profile2">MYPAGE</a></li>
+                    <li><a href="#profile3">BAG</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-    <div class="center-container">
-    {% block content %}
+    <div class="container">
+        {% block content %}
+        
+        {% endblock content %}
+    </div>
 
+    <div class="root">
+        <p class="hover-text">바람에 스치는 감성</p>
+    </div>
 
-    {% endblock content %}
-    </div>>
     <footer class="footer">
         <div class="footer-container">
             <div class="footer-section">

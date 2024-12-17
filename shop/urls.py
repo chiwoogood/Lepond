@@ -4,5 +4,5 @@ from . import views
 app_name = 'shop'  # 네임스페이스 설정
 
 urlpatterns = [
-    path('', views.shop, name='shop'),
+    path('', views.items, name='items'),
 ]
