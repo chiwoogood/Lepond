@@ -2,10 +2,17 @@
 {% load static %}
 
 {% block head %}
+<link rel="stylesheet" href="{% static 'main/css/main.css' %}">
 {% endblock head %}
 
 {% block content %}
-<img src="{% static 'main/images/main.jpg' %}" alt="Main" style="height:800px; width:auto;">
+{% if main_image %}
+    <div class="main-image">
+        <img src="{{ main_image.image.url }}" alt="{{ main_image.title }}">
+    </div>
+{% else %}
+    <p>현재 메인 이미지를 설정하지 않았습니다.</p>
+{% endif %}
 {% endblock content %}
 
 {% block script %}

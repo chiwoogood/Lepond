@@ -15,6 +15,35 @@ html, body {
     background-color: #fff; 
 }
 
+
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+    visibility: hidden;
+    z-index: 9999;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+    backdrop-filter: blur(5px);
+}
+
+#loading-screen.show {
+    opacity: 0;
+    visibility: visible;
+}
+
+#loading-screen p {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: bold;
+}
+
+
 body:lang(ko), body *:lang(ko) {
     font-family: 'Noto Serif KR', serif;
 }
@@ -285,7 +314,6 @@ a:hover {
 }
 
 .container {
-    margin-top: 60px; 
     height: calc(100vh - 60px); 
     display: flex;
     justify-content: center;
@@ -361,3 +389,31 @@ a:hover {
       opacity: 1;
     }
   }
+
+
+  #loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9); /* 배경 투명도 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    z-index: 9999; 
+    transition: opacity 0.5s ease;
+}
+
+#loading-screen.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#loading-screen p {
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: bold;
+}
