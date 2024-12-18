@@ -5,30 +5,25 @@ hamburger.addEventListener('click', () => {
     nav.classList.toggle('active');
 });
 
-document.addEventListener('DOMContentLoaded', () => {
-    const body = document.querySelector('body');
-    const loadingScreen = document.getElementById('loading-screen');
+document.addEventListener('DOMContentLoaded', function() {
+    const wrapper = document.querySelector('#barba-wrapper');
+    console.log('Wrapper found:', wrapper); // 디버깅용 로그
 
-    // 페이지 로드 시 페이드 인 효과
-    body.style.opacity = '0';
-    setTimeout(() => {
-        body.style.transition = 'opacity 0.5s ease';
-        body.style.opacity = '1'; // 페이드 인 효과
-    }, 100); // DOM이 완전히 로드된 후 시작
-
-    // 모든 링크 클릭 이벤트 처리
-    document.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', (event) => {
-            event.preventDefault(); 
-            const href = link.getAttribute('href'); // 이동할 URL 가져오기
-
-            // 페이드 아웃 효과 시작
-            body.style.opacity = '0'; // 페이드 아웃 효과
-            loadingScreen.classList.add('show'); // 로딩 화면 표시
-
-            setTimeout(() => {
-                window.location.href = href; // 페이지 이동
-            }, 300); // 페이드 아웃과 동기화
+    if (wrapper) {
+        barba.init({
+            transitions: [{
+                name: 'fade',
+                leave(data) {
+                    console.log('Leaving:', data.current.container); // 디버깅 로그
+                    return gsap.to(data.current.container, { opacity: 0 });
+                },
+                enter(data) {
+                    console.log('Entering:', data.next.container); // 디버깅 로그
+                    return gsap.from(data.next.container, { opacity: 0 });
+                }
+            }]
         });
-    });
+    } else {
+        console.error('No Barba wrapper found in the DOM.');
+    }
 });

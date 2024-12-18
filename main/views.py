@@ -6,15 +6,18 @@ from .models import MainImage
 
 def main(request):
     try:
-        main_image = MainImage.objects.last()  
+        main_image = MainImage.objects.last()
         if not main_image:
             raise MainImage.DoesNotExist("MainImage를 등록해주세요.")
     except MainImage.DoesNotExist:
-        main_image = None 
+        main_image = None
+
     context = {
-        'main_image': main_image
+        'main_image': main_image,
     }
     return render(request, 'main/main.html', context)
+
+
 
 def about(request):
     return render(request,'main/about.html')
