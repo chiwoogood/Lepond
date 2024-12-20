@@ -10,7 +10,7 @@
     {% block head %}
     {% endblock head %}
 </head>
-<body>
+<body style="opacity: 0;">
     <header class="header">
         <div class="header-container">
             <h1 class="logo"><a href="{% url 'main:main' %}">Lepond</a></h1>
@@ -27,7 +27,7 @@
                     <li><a href="{% url 'community:board' %}">COMMUNITY</a></li>
                 </ul>
                 <ul class="nav-users">
-                    <li><a href="{% url 'users:login' %}">SIGN IN</a></li>
+                    <li><a href="{% url 'users:signin' %}">SIGN IN</a></li>
                     <li><a href="{% url 'users:mypage' %}">MYPAGE</a></li>
                     <li><a href="{% url 'cart:myCart' %}">CART</a></li>
                 </ul>

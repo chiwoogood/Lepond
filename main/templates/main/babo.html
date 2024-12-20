@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lepond - The Funniest Store Ever</title>
+    <style>
+        body {
+            background: repeating-linear-gradient(
+                45deg,
+                pink,
+                lightblue 10px,
+                pink 20px
+            );
+            font-family: "Comic Sans MS", "Comic Sans", cursive;
+            text-align: center;
+            color: limegreen;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: yellow;
+            padding: 20px;
+            box-shadow: 0 0 15px red;
+            animation: spin 5s linear infinite;
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        h1 {
+            font-size: 4em;
+            text-shadow: 3px 3px 0 orange, 6px 6px 0 red;
+            margin: 0;
+        }
+
+        marquee {
+            font-size: 1.5em;
+            font-weight: bold;
+            background: hotpink;
+            color: white;
+            padding: 10px;
+            border: 5px dotted green;
+            margin: 20px 0;
+        }
+
+        nav {
+            margin: 20px 0;
+        }
+
+        nav a {
+            text-decoration: none;
+            font-size: 1.2em;
+            color: white;
+            background: purple;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 10px;
+            border: 3px dashed white;
+        }
+
+        nav a:hover {
+            background: white;
+            color: purple;
+            border: 3px solid purple;
+        }
+
+        section {
+            padding: 30px;
+            background: lightyellow;
+            border: 10px groove orange;
+            margin: 20px auto;
+            max-width: 80%;
+            font-size: 1.2em;
+            line-height: 1.5;
+        }
+
+        footer {
+            background: red;
+            color: yellow;
+            padding: 15px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 0.8em;
+            border-top: 5px solid black;
+        }
+
+        img {
+            width: 150px;
+            height: auto;
+            margin: 20px;
+            border: 5px solid pink;
+            border-radius: 50%;
+        }
+
+        button {
+            font-size: 1.5em;
+            background: limegreen;
+            color: purple;
+            padding: 15px 30px;
+            border: 5px dotted yellow;
+            border-radius: 20px;
+            cursor: pointer;
+            box-shadow: 5px 5px 15px magenta;
+        }
+
+        button:hover {
+            background: purple;
+            color: limegreen;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to Lepond!</h1>
+    </header>
+
+    <marquee>Hot Deals!!! Buy 1 Get 3 Free* (*Terms Apply)</marquee>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Shop</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <section>
+        <h2>Best Deals of the Day</h2>
+        <p>Don't miss out on these AMAZING offers that will blow your mind!</p>
+        <img src="https://via.placeholder.com/150" alt="Product 1">
+        <img src="https://via.placeholder.com/150" alt="Product 2">
+        <img src="https://via.placeholder.com/150" alt="Product 3">
+        <br>
+        <button>Shop Now!</button>
+    </section>
+
+    <footer>
+        &copy; 2024 Lepond. All Rights Reserved. Warning: Side effects of visiting this site may include laughter and spontaneous shopping sprees.
+    </footer>
+</body>
+</html>
