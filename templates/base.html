@@ -7,6 +7,7 @@
     <title>Lepond - Shop</title>
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif&family=Noto+Serif+KR:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.1/gsap.min.js"></script>
     {% block head %}
     {% endblock head %}
 </head>
@@ -70,6 +71,24 @@
     </footer>
     <script src="{% static 'js/base.js' %}"></script>
     {% block script %}
+    <script>
+        // 페이지 로딩 시 애니메이션 적용
+        window.onload = function() {
+            // 헤더 애니메이션
+            gsap.from(".header", { duration: 1, opacity: 0, y: -50 });
+
+            // 네비게이션 링크 애니메이션
+            gsap.from(".nav-links li", {
+                duration: 0.5,
+                opacity: 0,
+                y: 20,
+                stagger: 0.1
+            });
+
+            // 페이지 컨텐츠 애니메이션
+            gsap.from(".container", { duration: 1, opacity: 0, y: 50 });
+        }
+    </script>
     {% endblock script %}
 </body>
 </html>
