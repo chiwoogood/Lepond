@@ -13,8 +13,9 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: #fff; 
+    opacity: 1; /* 기본적으로 보이는 상태 */
+    transition: opacity 1s ease-in-out;
 }
-
 
 body:lang(ko), body *:lang(ko) {
     font-family: 'Noto Serif KR', serif;

@@ -1,0 +1,65 @@
+.form-container {
+    position: relative;
+  }
+  
+  .toggle-buttons {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .toggle-buttons button {
+    background: #e0e0e0;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 8px 8px 0 0;
+    outline: none;
+    transition: background 0.3s ease;
+  }
+  
+  .toggle-buttons button.active {
+    background: black;
+    color: #fff;
+  }
+  
+  .form {
+    display: none;
+    flex-direction: column;
+  }
+  
+  .form.active {
+    display: flex;
+  }
+  
+  form h2 {
+    margin-bottom: 15px;
+    color: #333;
+  }
+  
+  form input {
+    margin-bottom: 15px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+    font-size: 14px;
+  }
+  
+  form input:focus {
+    border-color: black;
+  }
+  
+  form button {
+    padding: 10px;
+    background: black;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  form button:hover {
+    background: gray;
+  }

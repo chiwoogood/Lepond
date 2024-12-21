@@ -27,3 +27,6 @@ def agreement(request):
 
 def policy(request):
     return render(request,'main/policy.html')
+
+def babo(request):
+    return render(request,'main/babo.html')
