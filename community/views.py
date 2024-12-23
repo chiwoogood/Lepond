@@ -1,5 +1,11 @@
 from django.shortcuts import render
 
 # Create your views here.
-def board(request):
-    return render(request, 'community/board.html')
+def notice(request):
+    return render(request, 'community/notice.html')
+
+def QnA(request):
+    return render(request, 'community/QnA.html')
+
+def review(request):
+    return render(request, 'community/review.html')
