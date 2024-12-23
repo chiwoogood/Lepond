@@ -3,19 +3,19 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: repeat(3, 1fr);
     gap: 1px; 
-    background-color: #ddd; 
+    background-color: #bbb; 
     width: 80%;
     height: 60vh;
 }
 .grid-item {
-    background-color: #fff;
+    background-color: #fff; 
+    padding: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 1.2rem;
-    font-weight: bold;
+    text-align: center;
 }
-
 .grid-item h2 {
     font-size: 1.2rem;
     margin: 0 0 5px 0;

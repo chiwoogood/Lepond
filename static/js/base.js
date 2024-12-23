@@ -7,7 +7,14 @@ hamburger.addEventListener('click', () => {
 
 
 document.addEventListener("DOMContentLoaded", function () {
-    // 페이지가 로드되면 body에 부드러운 전환을 적용
     document.body.style.transition = "opacity 1s ease-in-out"; 
-    document.body.style.opacity = "1"; // 보이게 설정
+    document.body.style.opacity = "1"; 
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+    var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+    toastElList.forEach(function (toastEl) {
+        var toast = new bootstrap.Toast(toastEl);
+        toast.show();
+    });
 });

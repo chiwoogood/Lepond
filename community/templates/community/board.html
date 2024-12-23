@@ -2,9 +2,51 @@
 {% load static %}
 
 {% block head %}
+<link rel="stylesheet" href="{% static 'community/css/board.css' %}">
 {% endblock head %}
 
 {% block content %}
+<div class="categories">
+    <a href="#all">All</a>
+    <a href="#announcements">Announcements</a>
+    <a href="#updates">Updates</a>
+</div>
+
+<div class="board-container">
+    <h1>Bulletin Board</h1>
+    
+    <!-- Table -->
+    <table class="board-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Welcome to the Board</td>
+                <td>Admin</td>
+                <td>2024-12-21</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Second Post</td>
+                <td>John Doe</td>
+                <td>2024-12-20</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Another Update</td>
+                <td>Jane Smith</td>
+                <td>2024-12-19</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 {% endblock content %}
 
 {% block script %}

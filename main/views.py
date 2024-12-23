@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .models import MainImage
+from django.contrib import messages
 # Create your views here.
 
 
@@ -11,7 +12,7 @@ def main(request):
             raise MainImage.DoesNotExist("MainImage를 등록해주세요.")
     except MainImage.DoesNotExist:
         main_image = None
-
+    messages.success(request, '작업이 성공적으로 완료되었습니다.')
     context = {
         'main_image': main_image,
     }
