@@ -6,16 +6,20 @@
 {% endblock head %}
 
 {% block content %}
-<div class="form-container">
+<div class="login-container">
   <div class="toggle-buttons">
     <button id="login-btn" class="active">Login</button>
     <button id="signup-btn">Sign Up</button>
   </div>
   <form id="login-form" class="form active">
-    <h2>Login</h2>
+    <h2>Lepond</h2>
     <input type="email" placeholder="Email" required>
     <input type="password" placeholder="Password" required>
     <button type="submit">Login</button>
+    <div class="additional-container">
+      <a href="#" id="forgot-password-link">Forgot Password?</a>
+      <a href="#" id="find-id-link">Find ID</a>
+    </div>
   </form>
   <form id="signup-form" class="form">
     <h2>Sign Up</h2>
@@ -25,8 +29,63 @@
     <button type="submit">Sign Up</button>
   </form>
 </div>
+
+<!-- Forgot Password Modal -->
+<div id="forgot-password-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h2>Forgot Password</h2>
+    <input type="email" placeholder="Enter your email" required>
+    <button type="submit">Send Reset Link</button>
+  </div>
+</div>
+
+<!-- Find ID Modal -->
+<div id="find-id-modal" class="modal">
+  <div class="modal-content">
+    <span class="close-modal">&times;</span>
+    <h2>Find ID</h2>
+    <input type="text" placeholder="Enter your registered name" required>
+    <input type="email" placeholder="Enter your registered email" required>
+    <button type="submit">Find ID</button>
+  </div>
+</div>
 {% endblock content %}
 
 {% block script %}
-    <script src="{% static 'users/js/signin.js' %}"></script>
+<script src="{% static 'users/js/signin.js' %}"></script>
+<script>
+  const forgotPasswordLink = document.getElementById('forgot-password-link');
+  const findIdLink = document.getElementById('find-id-link');
+  const forgotPasswordModal = document.getElementById('forgot-password-modal');
+  const findIdModal = document.getElementById('find-id-modal');
+  const closeModalButtons = document.querySelectorAll('.close-modal');
+
+  // Show Modals
+  forgotPasswordLink.addEventListener('click', () => {
+    forgotPasswordModal.style.display = 'block';
+  });
+
+  findIdLink.addEventListener('click', () => {
+    findIdModal.style.display = 'block';
+  });
+
+  // Close Modals
+  closeModalButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      forgotPasswordModal.style.display = 'none';
+      findIdModal.style.display = 'none';
+    });
+  });
+
+  // Close modal when clicking outside of it
+  window.addEventListener('click', (event) => {
+    if (event.target === forgotPasswordModal) {
+      forgotPasswordModal.style.display = 'none';
+    }
+    if (event.target === findIdModal) {
+      findIdModal.style.display = 'none';
+    }
+  });
+</script>
 {% endblock script %}

@@ -198,7 +198,11 @@ a:hover {
         flex-direction: row;
         gap: 2rem;
     }
-
+    
+    .nav.active .dropdown-content {
+        display: none;
+    }
+    
     .nav.active .nav-links,
     .nav.active .nav-users {
         display: flex;

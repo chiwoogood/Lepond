@@ -81,3 +81,32 @@ h1 {
 .board-table td {
     color: #333;
 }
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.page-btn {
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: white;
+    transition: background 0.3s ease;
+}
+
+.page-btn:hover {
+    text-decoration: underline;
+}
+
+.page-btn.prev,
+.page-btn.next {
+    font-weight: bold;
+}

@@ -203,6 +203,7 @@ a:hover {
         gap: 2rem;
         animation: fadeIn 0.5s ease, slideDown 0.5s ease;
     }
+    
     .nav.active .nav-links a,
     .nav.active .nav-users a {
         color: white;
