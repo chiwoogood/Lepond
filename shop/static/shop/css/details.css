@@ -1,0 +1,41 @@
+.detail-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr; /* 1:2:1 비율 */
+    gap: 1rem; /* 열 간격 */
+    width: 100%; /* 전체 너비 사용 */
+    color:black;
+}
+
+.sidebar-left,
+.sidebar-right {
+    background-color: #f4f4f4; /* 연한 배경색 */
+    color: #333; /* 글씨 색: 진한 회색 */
+    overflow-y: auto; /* 세로 스크롤 가능 */
+    padding: 1rem; /* 안쪽 여백 */
+    position: sticky; /* 스크롤 시 고정 */
+    top: 0; /* 고정 위치 */
+    height: max-content; /* 콘텐츠 크기만큼 높이 조정 */
+}
+
+
+
+@media (max-width: 768px) {
+    .detail-container {
+        grid-template-columns: 1fr; /* 한 열로 변경 */
+        grid-auto-rows: auto; /* 자동 높이 */
+    }
+
+    .main-content {
+        order: 1; /* 첫 번째 표시 */
+    }
+
+    .sidebar-left {
+        order: 2; /* 두 번째 표시 */
+        position: static; /* 고정 해제 */
+    }
+
+    .sidebar-right {
+        order: 3; /* 세 번째 표시 */
+        position: static; /* 고정 해제 */
+    }
+}

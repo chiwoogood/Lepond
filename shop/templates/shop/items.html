@@ -8,20 +8,21 @@
 {% block content %}
 
 <div class="product-container">
-    <div style="width:100%; background-color:oragne;">dd</div>
     <div class="category">
         <span class="category-item active" onclick="selectCategory(this)">New in</span>
         <span class="category-item" onclick="selectCategory(this)">25F/W</span>
     </div>
 
     <div class="image-grid">
-        <div class="image-item">
-            <div class="image"></div>
-            <div class="item-info">
-                <p class="item-title">Item 1</p>
-                <p class="item-status">Sold Out</p>
+        <a href="{% url 'shop:details' %}">
+            <div class="image-item">
+                <div class="image"></div>
+                <div class="item-info">
+                    <p class="item-title">Item 1</p>
+                    <p class="item-status">Sold Out</p>
+                </div>
             </div>
-        </div>
+        </a>
         <div class="image-item">
             <div class="image"></div>
             <div class="item-info">
@@ -100,7 +101,15 @@
             </div>
         </div>
     </div>
+    <div class="pagination">
+        <button class="page-btn prev">prev</button>
+        <button class="page-btn">1</button>
+        <button class="page-btn">2</button>
+        <button class="page-btn">3</button>
+        <button class="page-btn next">Next</button>
+    </div>
 </div>
+
 
 {% endblock content %}
 

@@ -1,0 +1,17 @@
+{% extends 'product.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'shop/css/details.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="detail-container">
+    <div class="sidebar-left">왼쪽 사이드바</div>
+    <div class="main-content">메인 콘텐츠</div>
+    <div class="sidebar-right">오른쪽 사이드바</div>
+</div>
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}
