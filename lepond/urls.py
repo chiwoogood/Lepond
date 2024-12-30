@@ -25,6 +25,5 @@ urlpatterns = [
     path('users/', include(('users.urls', 'users'), namespace='users')), 
     path('shop/', include(('shop.urls', 'shop'), namespace='shop')), 
     path('community/', include(('community.urls', 'community'), namespace='community')),
-    path('cart/',include(('cart.urls', 'cart'), namespace='cart')),
     path('payments/',include(('payments.urls', 'payments'), namespace='payments')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
