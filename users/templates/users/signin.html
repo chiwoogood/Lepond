@@ -21,32 +21,34 @@
       <a href="#" id="find-id-link">Find ID</a>
     </div>
   </form>
-  <form method="post" id="signup-form" class="form" action="#">
+  <form method="post" class="signup-form form" action="#">
     {% csrf_token %}
-    <input type="text" name="username" placeholder="Username" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <input type="password" name="password" placeholder="Password" required>
-    <input type="password" name="password_confirm" placeholder="Password Confirmation" required>
-    <input type="text" name="name" placeholder="성함" required>
-    
-    <input type="text" name="address_line1" placeholder="주소" required>
-    <input type="text" name="address_line2" placeholder="상세 주소 (선택)">
-    <input type="text" name="city" placeholder="도시" required>
-    <input type="text" name="state" placeholder="주/도" required>
-    <input type="text" name="postal_code" placeholder="우편번호" required>
-    
-    <select name="refund_bank" required>
-        <option value="">은행 선택</option>
-        <option value="Bank A">Bank A</option>
-        <option value="Bank B">Bank B</option>
-        <option value="Bank C">Bank C</option>
-    </select>
-    <input type="text" name="refund_account_number" placeholder="환불받을 계좌 주소" required>
-
+    <div class="signup-grid">
+      <div class="left-column">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="password_confirm" placeholder="Password Confirmation" required>
+        <input type="text" name="name" placeholder="성함" required>
+      </div>
+      <div class="right-column">
+        <input type="text" name="address_line1" placeholder="주소" required>
+        <input type="text" name="address_line2" placeholder="상세 주소 (선택)">
+        <input type="text" name="city" placeholder="도시" required>
+        <input type="text" name="state" placeholder="주/도" required>
+        <input type="text" name="postal_code" placeholder="우편번호" required>
+        <select name="refund_bank" required>
+          <option value="">은행 선택</option>
+          <option value="Bank A">Bank A</option>
+          <option value="Bank B">Bank B</option>
+          <option value="Bank C">Bank C</option>
+        </select>
+        <input type="text" name="refund_account_number" placeholder="환불받을 계좌 주소" required>
+      </div>
+    </div>
     <button type="submit">가입</button>
   </form>
 </div>
-
 
 <!-- Forgot Password Modal -->
 <div id="forgot-password-modal" class="modal">
@@ -71,8 +73,28 @@
 {% endblock content %}
 
 {% block script %}
-<script src="{% static 'users/js/signin.js' %}"></script>
 <script>
+  // Toggle Forms
+  const loginForm = document.getElementById('login-form');
+  const signupForm = document.querySelector('.signup-form');
+  const loginBtn = document.getElementById('login-btn');
+  const signupBtn = document.getElementById('signup-btn');
+
+  loginBtn.addEventListener('click', () => {
+    loginForm.classList.add('active');
+    signupForm.classList.remove('active');
+    loginBtn.classList.add('active');
+    signupBtn.classList.remove('active');
+  });
+
+  signupBtn.addEventListener('click', () => {
+    signupForm.classList.add('active');
+    loginForm.classList.remove('active');
+    signupBtn.classList.add('active');
+    loginBtn.classList.remove('active');
+  });
+
+  // Modals
   const forgotPasswordLink = document.getElementById('forgot-password-link');
   const findIdLink = document.getElementById('find-id-link');
   const forgotPasswordModal = document.getElementById('forgot-password-modal');
@@ -80,11 +102,13 @@
   const closeModalButtons = document.querySelectorAll('.close-modal');
 
   // Show Modals
-  forgotPasswordLink.addEventListener('click', () => {
+  forgotPasswordLink.addEventListener('click', (event) => {
+    event.preventDefault();
     forgotPasswordModal.style.display = 'block';
   });
 
-  findIdLink.addEventListener('click', () => {
+  findIdLink.addEventListener('click', (event) => {
+    event.preventDefault();
     findIdModal.style.display = 'block';
   });
 

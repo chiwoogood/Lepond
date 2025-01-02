@@ -3,7 +3,7 @@
     max-width: 800px;
     border-radius: 8px;
     padding: 20px;
-    height: auto;
+    margin: 0 auto;
 }
 
 .row-cols-1.row-cols-md-2.g-4 {
@@ -18,33 +18,42 @@
     }
 }
 
-.card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    border: none; /* border 제거 */
-    display: flex;
-    flex-direction: row; /* 이미지와 내용을 좌우 배치 */
-    align-items: center;
-    border-radius: 8px;
-    padding: 10px;
-    gap: 20px;
-}
-
-.card-img-top {
+.product-img {
     width: 150px;
     height: auto;
     border-radius: 8px;
     flex-shrink: 0; /* 이미지 크기 고정 */
 }
 
-.card-title {
+.product-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1; /* 텍스트와 버튼이 공간을 차지하도록 */
+}
+
+.product-title {
     font-size: 1.2rem;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.card-body {
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.product-text {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.btn:hover {
+    background-color: #0056b3;
 }
