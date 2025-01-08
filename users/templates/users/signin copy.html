@@ -33,35 +33,11 @@
         <input type="text" name="name" placeholder="성함" required>
       </div>
       <div class="right-column">
-        <div style="position: relative; display: inline-block; width: 300px;">
-          <input 
-              type="text" 
-              id="postcode" 
-              placeholder="우편번호" 
-              style="width: 100%; padding-right: 80px;" 
-              required
-          >
-          <button 
-              type="button" 
-              onclick="sample4_execDaumPostcode()" 
-              style="
-                  position: absolute; 
-                  right: 0; 
-                  top: 0; 
-                  height: 100%; 
-                  border: none; 
-                  background: #007bff; 
-                  color: white; 
-                  padding: 0 15px; 
-                  cursor: pointer; 
-                  border-radius: 0 4px 4px 0;">
-              찾기
-          </button>
-      </div>
-      <br>
-      <input type="text" id="roadAddress" placeholder="도로명주소">
-      <input type="text" id="jibunAddress" placeholder="지번주소">
-      <input type="text" id="extraAddress" placeholder="상세주소">
+        <input type="text" name="address_line1" placeholder="주소" required>
+        <input type="text" name="address_line2" placeholder="상세 주소 (선택)">
+        <input type="text" name="city" placeholder="도시" required>
+        <input type="text" name="state" placeholder="주/도" required>
+        <input type="text" name="postal_code" placeholder="우편번호" required>
         <select name="refund_bank" required>
           <option value="">은행 선택</option>
           <option value="Bank A">Bank A</option>
@@ -74,6 +50,13 @@
     <button type="submit">가입</button>
     
   </form>
+
+  <input type="text" id="sample4_postcode" placeholder="우편번호">
+  <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기"><br>
+  <input type="text" id="sample4_roadAddress" placeholder="도로명주소">
+  <input type="text" id="sample4_jibunAddress" placeholder="지번주소">
+  <span id="guide" style="color:#999;display:none"></span>
+  <input type="text" id="sample4_detailAddress" placeholder="상세주소">
 </div>
 
 <!-- Forgot Password Modal -->
@@ -97,31 +80,7 @@
   </div>
 </div>
 
-<div id="layer" style="
-    display:none;
-    position:fixed;
-    z-index:9999;
-    width:100%;
-    height:100%;
-    top:0;
-    left:0;
-    background:white;
-    overflow:auto;">
-    <button 
-        onclick="document.getElementById('layer').style.display='none';" 
-        style="
-            position:absolute;
-            top:10px;
-            right:10px;
-            background:#007bff;
-            color:white;
-            border:none;
-            padding:5px 10px;
-            border-radius:4px;
-            cursor:pointer;">
-        닫기
-    </button>
-</div>
+<div id="layer" style="display:none;position:fixed;z-index:9999;width:100%;height:100%;top:0;left:0;background:white;overflow:auto;"></div>
 {% endblock content %}
 
 {% block script %}
