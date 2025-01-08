@@ -12,17 +12,18 @@
     <button id="login-btn" class="active">Login</button>
     <button id="signup-btn">Sign Up</button>
   </div>
-  <form id="login-form" class="form active">
+  <form id="login-form" class="form active" method="post" action="{% url 'users:login' %}">
+    {% csrf_token %}
     <h2>Lepond</h2>
-    <input type="email" placeholder="Email" required>
-    <input type="password" placeholder="Password" required>
+    <input type="text" name="username" placeholder="ID" required>
+    <input type="password" name="password" placeholder="Password" required>
     <button type="submit">Login</button>
     <div class="additional-container">
-      <a href="#" id="forgot-password-link">Forgot Password?</a>
-      <a href="#" id="find-id-link">Find ID</a>
+        <a href="#" id="forgot-password-link">Forgot Password?</a>
+        <a href="#" id="find-id-link">Find ID</a>
     </div>
   </form>
-  <form method="post" class="signup-form form" action="#">
+  <form method="post" class="signup-form form" action="{% url 'users:signup' %}">
     {% csrf_token %}
     <div class="signup-grid">
       <div class="left-column">
@@ -34,45 +35,25 @@
       </div>
       <div class="right-column">
         <div style="position: relative; display: inline-block; width: 300px;">
-          <input 
-              type="text" 
-              id="postcode" 
-              placeholder="우편번호" 
-              style="width: 100%; padding-right: 80px;" 
-              required
-          >
-          <button 
-              type="button" 
-              onclick="sample4_execDaumPostcode()" 
-              style="
-                  position: absolute; 
-                  right: 0; 
-                  top: 0; 
-                  height: 100%; 
-                  border: none; 
-                  background: #007bff; 
-                  color: white; 
-                  padding: 0 15px; 
-                  cursor: pointer; 
-                  border-radius: 0 4px 4px 0;">
+          <input type="text" id="postcode" placeholder="우편번호" name="postcode" style="width: 100%; padding-right: 80px;" required>
+          <button type="button" onclick="sample4_execDaumPostcode()" style="position: absolute; right: 0; top: 0; height: 100%; border: none; background: #007bff; color: white; padding: 0 15px; cursor: pointer; border-radius: 0 4px 4px 0;">
               찾기
           </button>
       </div>
       <br>
-      <input type="text" id="roadAddress" placeholder="도로명주소">
-      <input type="text" id="jibunAddress" placeholder="지번주소">
-      <input type="text" id="extraAddress" placeholder="상세주소">
-        <select name="refund_bank" required>
+      <input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소">
+      <input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소">
+      <input type="text" name="extraAddress" id="extraAddress" placeholder="상세주소">
+        <select name="bank" required>
           <option value="">은행 선택</option>
           <option value="Bank A">Bank A</option>
           <option value="Bank B">Bank B</option>
           <option value="Bank C">Bank C</option>
         </select>
-        <input type="text" name="refund_account_number" placeholder="환불받을 계좌 주소" required>
+        <input type="text" name="bankAccount" placeholder="환불받을 계좌 주소" required>
       </div>
     </div>
     <button type="submit">가입</button>
-    
   </form>
 </div>
 

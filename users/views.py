@@ -2,17 +2,51 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-# Create your views here.
+from .forms import CustomUserCreationForm, AddressForm
 
 def signin(request):
+
     return render(request, 'users/signin.html')
 
 
 def mypage(request):
     return render(request, 'users/mypage.html')
 
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        
+        if user is not None:
+            login(request, user)
+            return redirect('main:main') 
+        else:
+            messages.error(request, 'Login failed. Please check your credentials.') # 일반적인 에러 메시지
+    return render(request, 'users/signin.html')  
 
+def user_signup(request):
+    if request.method == 'POST':
+        user_form = CustomUserCreationForm(request.POST)
+        address_form = AddressForm(request.POST)
+        if user_form.is_valid() and address_form.is_valid():
+            user = user_form.save()
+            address = address_form.save(commit=False)
+            address.user = user
+            address.save()
+            messages.success(request, "Registration successful. Please log in.")
+            return redirect('users:login')
+        else:
+            messages.error(request, "Registration failed. Please correct the errors.")
+    else:
+        user_form = CustomUserCreationForm()
+        address_form = AddressForm()
 
+    context = {
+        'user_form': user_form,
+        'address_form': address_form,
+    }
+    return render(request, 'users/signin.html', context)
 
 # def user_join(request):
 #     if request.method == 'POST':
