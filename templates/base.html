@@ -51,7 +51,13 @@
                     </li>
                 </ul>
                 <ul class="nav-users">
-                    <li><a href="{% url 'users:signin' %}">SIGN IN</a></li>
+                    <li>
+                        {% if request.user.is_authenticated %}
+                          <a href="{% url 'users:signout' %}">LOGOUT</a>
+                        {% else %}
+                          <a href="{% url 'users:login' %}">SIGN IN</a>
+                        {% endif %}
+                    </li>
                     <li><a href="{% url 'users:mypage' %}">MYPAGE</a></li>
                     <li><a href="{% url 'shop:cart' %}">CART</a></li>
                 </ul>

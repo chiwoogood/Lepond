@@ -3,16 +3,18 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import CustomUserCreationForm, AddressForm
+from django.urls import reverse
 
 def signin(request):
 
     return render(request, 'users/signin.html')
 
-
+@login_required
 def mypage(request):
     return render(request, 'users/mypage.html')
 
-def user_login(request):
+
+def user_signin(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -20,10 +22,16 @@ def user_login(request):
         
         if user is not None:
             login(request, user)
-            return redirect('main:main') 
+            # POST 요청에서 'next' 값을 가져옵니다.
+            next_url = request.POST.get('next', reverse('main:main'))  # 기본 URL로 대체
+            if not next_url.strip():  # next 값이 빈 문자열인 경우 처리
+                next_url = reverse('main:main')
+            messages.success(request, '로그인이 완료되었습니다.')
+            return redirect(next_url)
         else:
-            messages.error(request, 'Login failed. Please check your credentials.') # 일반적인 에러 메시지
-    return render(request, 'users/signin.html')  
+            messages.error(request, 'Login failed. Please check your credentials.')
+    
+    return render(request, 'users/signin.html')
 
 def user_signup(request):
     if request.method == 'POST':
@@ -35,7 +43,7 @@ def user_signup(request):
             address.user = user
             address.save()
             messages.success(request, "Registration successful. Please log in.")
-            return redirect('users:login')
+            return redirect('users:signin')
         else:
             messages.error(request, "Registration failed. Please correct the errors.")
     else:
@@ -48,65 +56,10 @@ def user_signup(request):
     }
     return render(request, 'users/signin.html', context)
 
-# def user_join(request):
-#     if request.method == 'POST':
-#         form = CustomUserCreationForm(request.POST)
-#         join_location_password = request.POST.get('join_location_password')
-#         localid = request.POST.get('location_id')
-        
-#         print(f'join location password : {join_location_password}, localid : {localid}')
-#         print(f'join location password type: {type(join_location_password)}, localid type: {type(localid)}')
-#         try:
-#             location = Localinfo.objects.get(localid=localid)
-#             print(f'got it')
-#         except Localinfo.DoesNotExist:
-#             messages.error(request, 'fail!!')
-#             return redirect('accounts:login')
-
-#         if int(location.localid) != int(join_location_password):
-#             messages.error(request, 'Invalid location password.')
-#             return redirect('accounts:login')
-
-
-#         if form.is_valid():
-#             print(f'{localid} and {join_location_password}',2)
-#             user = form.save(commit=False)
-#             user.location = location  
-#             user.save()
-#             username = form.cleaned_data.get('username')
-#             messages.success(request, f'Account created for {username}!')
-#             return redirect('accounts:login')
-#         else:
-#             print(f"Form is invalid: {form.errors}")
-
-#     else:
-#         form = CustomUserCreationForm()
-
-#     locations = Localinfo.objects.all() 
-#     return render(request, 'accounts/login.html', {'form': form, 'locations': locations})
-
-
-# def user_login(request):
-#     if request.method == 'POST':
-#         username = request.POST.get('username')
-#         password = request.POST.get('password')
-#         user = authenticate(request, username=username, password=password)
-#         if user is not None:
-#             login(request, user)
-#             return redirect('main:main')
-#         else:
-#             messages.error(request, 'Invalid username or password')
-
-    
-#     locations = Localinfo.objects.values('localid', 'localalias')
-#     context = {
-#         'locations': locations  
-#     }
-#     return render(request, 'accounts/login.html', context)
-
-# def user_logout(request):
-#     logout(request)
-#     return redirect('accounts:login') 
+def user_signout(request):
+    logout(request)
+    messages.success(request, "로그아웃이 완료되었습니다.")
+    return redirect('main:main') 
 
 # @login_required
 # def user_update(request):

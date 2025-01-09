@@ -4,11 +4,11 @@ from . import views
 app_name = 'users'
 
 urlpatterns = [
-    path('signin/', views.signin, name='signin'),
+    path('', views.signin, name='login'),
     path('mypage/', views.mypage, name='mypage'),
     path('signup/', views.user_signup, name='signup'),
-    path('login/', views.user_login, name='login'),
-    # path('logout', views.user_logout, name='logout'),
+    path('signin/', views.user_signin, name='signin'),
+    path('signout/', views.user_signout, name='signout'),
     # path('update', views.user_update, name='update'),
     # path('delete', views.user_delete, name='delete'),
 ]
