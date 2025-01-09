@@ -61,6 +61,40 @@ def user_signout(request):
     messages.success(request, "로그아웃이 완료되었습니다.")
     return redirect('main:main') 
 
+@login_required
+def myorder(request):
+
+    return render(request, 'users/myorder.html')
+
+@login_required
+def profile(request):
+    
+    return render(request, 'users/profile.html')
+
+@login_required
+def update(request):
+    return render(request, 'users/update.html')
+
+def user_update(request):
+    pass
+    
+@login_required
+def address(request):
+    return render(request,'users/address.html')
+
+
+def user_address_add(request):
+    pass
+
+def user_address_delete(request):
+    pass
+
+@login_required
+def mycommunity(request):
+    
+    return render(request,'users/mycommunity.html')
+
+
 # @login_required
 # def user_update(request):
 #     if request.method == 'POST':

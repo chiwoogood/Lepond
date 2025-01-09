@@ -1,28 +1,51 @@
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(3, 1fr);
-    gap: 1px; 
-    background-color: #bbb; 
+    grid-template-columns: repeat(2, 1fr); /* 기본 2열 레이아웃 */
+    gap: 0; /* 간격 제거 */
     width: 80%;
-    height: 60vh;
+    margin: 0 auto; /* 가운데 정렬 */
+    position: relative; /* 가운데 선 위치용 */
 }
+
 .grid-item {
-    background-color: #fff; 
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     text-align: center;
+    border-bottom: 1px solid #ddd; /* 기본적으로 가로선 추가 */
 }
-.grid-item h2 {
-    font-size: 1.2rem;
-    margin: 0 0 5px 0;
-    color: #333;
+
+/* 가운데 세로선 추가 */
+.grid-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%; /* 가운데 위치 */
+    width: 1px; /* 선 두께 */
+    background-color: #ddd; /* 선 색상 */
+    transform: translateX(-50%); /* 정확한 가운데 정렬 */
 }
-.grid-item p {
-    font-size: 1rem;
-    margin: 0;
-    color: #666;
+
+/* 마지막 줄의 가로선 제거 */
+.grid-container > .grid-item:nth-last-child(-n+2) {
+    border-bottom: none;
+}
+
+/* 반응형: 작은 화면에서는 한 열 레이아웃으로 변경 */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* 한 열 레이아웃 */
+        width: 100%; /* 화면을 꽉 채움 */
+    }
+    
+    .grid-container::before {
+        display: none; /* 가운데 세로선 숨김 */
+    }
+    
+    .grid-item {
+        border-bottom: 1px solid #ddd; /* 한 열일 때 하단 선 유지 */
+    }
 }

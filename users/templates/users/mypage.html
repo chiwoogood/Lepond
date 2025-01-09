@@ -7,29 +7,39 @@
 
 {% block content %}
 <div class="grid-container">
+    <a href="{% url 'users:myorder' %}">
+        <div class="grid-item">
+            <h2>Order</h2>
+            <p>내용 1입니다.</p>
+        </div>
+    </a>
+    <a href="{% url 'shop:cart' %}">
+        <div class="grid-item">
+            <h2>Cart</h2>
+            <p>내용 2입니다.</p>
+        </div>
+    </a>
+    <a href="{% url 'users:profile' %}">
+        <div class="grid-item">
+            <h2>Profile</h2>
+            <p>내용 3입니다.</p> 
+        </div>
+    </a>
+    <a href="{% url 'users:address' %}">
+        <div class="grid-item">
+            <h2>Address</h2>
+            <p>내용 4입니다.</p>  
+        </div>
+    </a>
+    <a href="{% url 'users:mycommunity' %}">
+        <div class="grid-item">
+            <h2>My Community</h2>
+            <p>내용 5입니다.</p>
+        </div>
+    </a>
     <div class="grid-item">
-        <h2>Order</h2>
-        <p>내용 1입니다.</p>
-    </div>
-    <div class="grid-item">
-        <h2>Cart</h2>
-        <p>내용 2입니다.</p>
-    </div>
-    <div class="grid-item">
-        <h2>Profile</h2>
-        <p>내용 3입니다.</p>
-    </div>
-    <div class="grid-item">
-        <h2>Address</h2>
-        <p>내용 4입니다.</p>
-    </div>
-    <div class="grid-item">
-        <h2>My Q%A</h2>
-        <p>내용 5입니다.</p>
-    </div>
-    <div class="grid-item">
-        <h2>제목 6</h2>
-        <p>내용 6입니다.</p>
+        <h2>Contact</h2>
+        <p>+820101</p>
     </div>
 </div>
 {% endblock content %}
