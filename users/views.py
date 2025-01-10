@@ -22,9 +22,8 @@ def user_signin(request):
         
         if user is not None:
             login(request, user)
-            # POST 요청에서 'next' 값을 가져옵니다.
-            next_url = request.POST.get('next', reverse('main:main'))  # 기본 URL로 대체
-            if not next_url.strip():  # next 값이 빈 문자열인 경우 처리
+            next_url = request.POST.get('next', reverse('main:main')) 
+            if not next_url.strip():  
                 next_url = reverse('main:main')
             messages.success(request, '로그인이 완료되었습니다.')
             return redirect(next_url)
@@ -63,7 +62,6 @@ def user_signout(request):
 
 @login_required
 def myorder(request):
-
     return render(request, 'users/myorder.html')
 
 @login_required
@@ -91,9 +89,12 @@ def user_address_delete(request):
 
 @login_required
 def mycommunity(request):
-    
+     
     return render(request,'users/mycommunity.html')
 
+
+def test(request):
+    return render(request,'users/test.html')
 
 # @login_required
 # def user_update(request):

@@ -16,5 +16,6 @@ urlpatterns = [
     path('address_add/', views.user_address_add, name='address_add'),
     path('address_delete/', views.user_address_delete, name='address_delete'),
     path('mycommunity/', views.mycommunity, name='mycommunity'),
+    path('test/', views.test, name='test'),
 ]
 

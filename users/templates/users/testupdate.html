@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+
+        .form-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        
+        .form {
+            display: none; 
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .form.active {
+            display: flex;
+        }
+        
+        .form h2 {
+            margin-bottom: 20px;
+            color: #222;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        
+        .grid-layout .left-column,
+        .grid-layout .right-column {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .grid-layout input,
+        .grid-layout select {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            outline: none;
+            font-size: 16px;
+            background: none;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+        
+        .grid-layout input:focus,
+        .grid-layout select:focus {
+            border-bottom: 2px solid #222;
+        }
+        
+        .form button {
+            padding: 10px 20px;
+            background: none;
+            color: #222;
+            border: none;
+            border-bottom: 2px solid #ccc;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: border-color 0.3s ease, color 0.3s ease;
+        }
+        
+        .form button:hover {
+            border-bottom: 2px solid #222;
+            color: black;
+        }
+        
+        @media (max-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <div class="form active">
+            <h2>Form Title</h2>
+            <div class="grid-layout">
+                <!-- Left Column -->
+                <div class="left-column">
+                    <input type="text" placeholder="First Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <input type="tel" placeholder="Phone Number" required>
+                </div>
+                <!-- Right Column -->
+                <div class="right-column">
+                    <input type="text" placeholder="Last Name" required>
+                    <select>
+                        <option value="" disabled selected>Choose Option</option>
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <option value="option3">Option 3</option>
+                    </select>
+                    <input type="password" placeholder="Password" required>
+                </div>
+            </div>
+            <button type="submit">Submit</button>
+        </div>
+    </div>
+    
+</body>
+</html>
