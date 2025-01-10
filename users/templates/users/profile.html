@@ -6,6 +6,26 @@
 {% endblock head %}
 
 {% block content %}
+<div class="form-container">
+    <div class="form active">
+        <div class="grid-layout">
+            <div class="button-container">
+                <a href="{% url 'users:update' %}" class="update-button">Update</a>
+            </div>
+            <input type="text" placeholder="First Name" required>
+            <input type="text" placeholder="Last Name" required>
+            <input type="email" placeholder="Email Address" required>
+            <input type="tel" placeholder="Phone Number" required>
+            <select>
+                <option value="" disabled selected>Choose Option</option>
+                <option value="option1">Option 1</option>
+                <option value="option2">Option 2</option>
+                <option value="option3">Option 3</option>
+            </select>
+            <input type="password" placeholder="Password" required>
+        </div>
+    </div>
+</div>
 
 {% endblock content %}
 
