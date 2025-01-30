@@ -1,120 +1,18 @@
-.product-container {
-    margin: 5rem 0;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-}
-
-.top-line {
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(90deg, black, grey);
-    margin-bottom: 20px;
-}
-
-.category {
-    display: flex;
-    justify-content: flex-end;  
-    gap: 30px;
-    margin-bottom: 3rem;
-}
-
-.category-item {
-    font-size: 16px;
-    font-weight: 300; 
-    color: gray;
-    cursor: pointer; 
-    transition: all 0.3s; 
-}
-
-.category-item.active {
-    font-weight: 700;
-    color: black;
-}
-
-.image-grid {
+.list-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); 
-    grid-template-rows: repeat(4, 1fr); 
-    gap: 10px;
-    width: 100%;
-    height: 100vh;
+    gap: 20px;
+    max-width: 1200px;
+    margin: auto;
 }
 
-.image-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.image {
-    background-color: #f4f4f4;
-    width: 100%;
-    height: 100%; 
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.item-info {
-    text-align: center;
-    margin-top: 10px;
-}
-
-.item-title {
-    font-size: 16px;
-    font-weight: bold;
-    margin: 0;
-}
-
-.item-status {
-    font-size: 14px;
-    color: red;
-    margin: 0;
-}
-
-@media screen and (max-width: 768px) {
-    .image-grid {
-        grid-template-columns: repeat(2, 1fr); 
-        grid-template-rows: repeat(6, 1fr); 
-        gap: 15px; 
-        height: auto; 
-    }
-
-    .image {
-        height: 150px;
+@media (max-width: 1024px) {
+    .list-container {
+        margin-top: 70px;
     }
 }
 
-
-
-
-
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.page-btn {
-    color: black;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    background-color: white;
-    transition: background 0.3s ease;
-}
-
-.page-btn:hover {
-    text-decoration: underline;
-}
-
-.page-btn.prev,
-.page-btn.next {
-    font-weight: bold;
+@media (max-width: 768px) {
+    .list-container {
+        margin-top: 60px; 
+    }
 }

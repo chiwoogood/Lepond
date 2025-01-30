@@ -3,101 +3,158 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'shop/css/items.css' %}">
+<style>
+    .list-container {
+        display: grid;
+        gap: 20px;
+        max-width: 1200px;
+        margin: auto;
+    }
+
+    .list-container .row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);  /* 기본적으로 2열로 설정 */
+        gap: 20px;
+    }
+
+    @media (max-width: 1024px) {
+        .list-container .row {
+            grid-template-columns: repeat(2, 1fr);  /* 반응형에서도 2열 유지 */
+        }
+    }
+
+    @media (max-width: 768px) {
+        .list-container .row {
+            grid-template-columns: repeat(1, 1fr);  /* 작은 화면에서는 1열로 변경 */
+        }
+    }
+
+    .category {
+        margin-top:80px;
+        display: flex;
+        justify-content: center;
+        gap: 30px;
+    }
+
+    @media (max-width: 1024px) {
+        .category {
+            margin-top: 70px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .category {
+            margin-top: 60px;
+        }
+    }
+    .category-item {
+        font-size: 16px;
+        font-weight: 300; 
+        color: gray;
+        cursor: pointer; 
+        transition: all 0.3s; 
+    }
+
+    .category-item.active {
+        font-weight: 700;
+        color: black;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .page-btn {
+        color: black;
+        border: none;
+        padding: 10px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+        background-color: white;
+        transition: background 0.3s ease;
+    }
+
+    .page-btn:hover {
+        text-decoration: underline;
+    }
+
+    .page-btn.prev,
+    .page-btn.next {
+        font-weight: bold;
+    }
+</style>
 {% endblock head %}
 
 {% block content %}
+<div class="container py-0 px-0">
+    <div class="list-container">
 
-<div class="product-container">
-    <div class="category">
-        <span class="category-item active" onclick="selectCategory(this)">New in</span>
-        <span class="category-item" onclick="selectCategory(this)">25F/W</span>
-    </div>
-
-    <div class="image-grid">
-        <a href="{% url 'shop:details' %}">
-            <div class="image-item">
-                <div class="image"></div>
-                <div class="item-info">
-                    <p class="item-title">Item 1</p>
-                    <p class="item-status">Sold Out</p>
+        <div class="category">
+            <span class="category-item active" onclick="selectCategory(this)">New in</span>
+            <span class="category-item" onclick="selectCategory(this)">25F/W</span>
+        </div>
+        
+        <div class="row">
+            <div class="col">
+                <div class="swiper-slide">
+                    
+                    <a href="{% url 'shop:details' %}"><img src="https://dummyimage.com/900x700/ccc/000&text=Product+1" class="card-img-top" alt="Thumbnail Image"></a>
+                    
+                    <div class="card-body">
+                        <h5 class="card-title">Item 1</h5>
+                        <p class="card-text">Description of item 1</p>
+                    </div>
                 </div>
             </div>
-        </a>
-        <div class="image-item">
-            <div class="image"></div>
-            <div class="item-info">
-                <p class="item-title">Item 2</p>
-                <p class="item-status">Available</p>
+            <div class="col">
+                <div class="swiper-slide">
+                    <a href="{% url 'shop:details' %}"><img src="https://dummyimage.com/900x700/ccc/000&text=Product+1" class="card-img-top" alt="Thumbnail Image"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Item 2</h5>
+                        <p class="card-text">Description of item 2</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="image-item">
-            <div class="image"></div>
-            <div class="item-info">
-                <p class="item-title">Item 3</p>
-                <p class="item-status">Sold Out</p>
+            <div class="col">
+                <div class="swiper-slide">
+                    <a href="{% url 'shop:details' %}"><img src="https://dummyimage.com/900x700/ccc/000&text=Product+1" class="card-img-top" alt="Thumbnail Image"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Item 3</h5>
+                        <p class="card-text">Description of item 3</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="image-item">
-            <div class="image"></div>
-            <div class="item-info">
-                <p class="item-title">Item 4</p>
-                <p class="item-status">Available</p>
+            <div class="col">
+                <div class="swiper-slide">
+                    <a href="{% url 'shop:details' %}"><img src="https://dummyimage.com/900x700/ccc/000&text=Product+1" class="card-img-top" alt="Thumbnail Image"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Item 4</h5>
+                        <p class="card-text">Description of item 4</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="image-item">
-            <div class="image"></div>
-            <div class="item-info">
-                <p class="item-title">Item 5</p>
-                <p class="item-status">Sold Out</p>
+            <div class="col">
+                <div class="swiper-slide">
+                    <a href="{% url 'shop:details' %}"><img src="https://dummyimage.com/900x700/ccc/000&text=Product+1" class="card-img-top" alt="Thumbnail Image"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Item 5</h5>
+                        <p class="card-text">Description of item 5</p>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="image-item">
-            <div class="image"></div>
-            <div class="item-info">
-                <p class="item-title">Item 6</p>
-                <p class="item-status">Available</p>
-            </div>
-        </div>
-        <div class="image-item">
-            <div class="image"></div>
-            <div class="item-info">
-                <p class="item-title">Item 7</p>
-                <p class="item-status">Sold Out</p>
-            </div>
-        </div>
-        <div class="image-item">
-            <div class="image"></div>
-            <div class="item-info">
-                <p class="item-title">Item 8</p>
-                <p class="item-status">Available</p>
-            </div>
-        </div>
-        <div class="image-item">
-            <div class="image"></div>
-            <div class="item-info">
-                <p class="item-title">Item 9</p>
-                <p class="item-status">Sold Out</p>
-            </div>
-        </div>
-        <div class="image-item">
-            <div class="image"></div>
-            <div class="item-info">
-                <p class="item-title">Item 10</p>
-                <p class="item-status">Available</p>
-            </div>
-        </div>
-        <div class="image-item">
-            <div class="image"></div>
-            <div class="item-info">
-                <p class="item-title">Item 11</p>
-                <p class="item-status">Sold Out</p>
-            </div>
-        </div>
-        <div class="image-item">
-            <div class="image"></div>
-            <div class="item-info">
-                <p class="item-title">Item 12</p>
-                <p class="item-status">Available</p>
+            <div class="col">
+                <div class="swiper-slide">
+                    <a href="{% url 'shop:details' %}"><img src="https://dummyimage.com/900x700/ccc/000&text=Product+1" class="card-img-top" alt="Thumbnail Image"></a>
+                    <div class="card-body">
+                        <h5 class="card-title">Item 6</h5>
+                        <p class="card-text">Description of item 6</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -109,10 +166,9 @@
         <button class="page-btn next">Next</button>
     </div>
 </div>
-
-
+<div class="scroll-to-top" onclick="scrollToTop()">&#8679;</div>
 {% endblock content %}
 
 {% block script %}
-<script src="{% static 'shop/js/items.js' %}"></script>
-{% endblock script %}
+    <script src="{% static 'shop/js/items.js' %}"></script>
+{% endblock script%}
