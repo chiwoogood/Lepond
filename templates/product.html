@@ -77,6 +77,27 @@
             {% endif %}
         </p>
     </div>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3><a href="{% url 'main:policy' %}">Policy</a></h3>
+                <h3><a href="{% url 'main:agreement' %}">Agreement</a></h3>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <p>Email: babo@example.com</p>
+                <p>Phone: +10 </p>
+                <p><a href="https://www.instagram.com/lepond.shop/">Instagram</a></p>
+            </div>
+            <div class="footer-section">
+                <h3>회사</h3>
+                <ul class="social-links">
+                    <li></li>
+                    <li></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
     <div class="toast-container">
         {% if messages %}
             {% for message in messages %}

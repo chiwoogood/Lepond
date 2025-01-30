@@ -375,3 +375,20 @@ a:hover {
 .toast .btn-close:hover {
     opacity: 1; 
 }
+
+.footer {
+    color: black;
+    padding: 2rem 1rem;
+    font-size: 0.9rem;
+
+}
+
+.footer-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem; 
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    
+}
