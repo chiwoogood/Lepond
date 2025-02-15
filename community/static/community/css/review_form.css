@@ -1,0 +1,79 @@
+.qna-container {
+    max-height: 80%;
+    width:100%;
+    height:90%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.qna-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.qna-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.qna-input, .qna-textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.qna-textarea {
+    height: 150px;
+    resize: none;
+}
+
+.qna-submit {
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.qna-submit:hover {
+    background: #0056b3;
+}
+
+.qna-container {
+    max-height: 80%;
+}
+
+@media (max-width: 768px) {
+    .qna-container {
+        padding: 15px;
+    }
+    .qna-title {
+        font-size: 20px;
+    }
+    .qna-input, .qna-textarea {
+        padding: 8px;
+    }
+    .qna-submit {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .qna-container {
+        padding: 10px;
+    }
+    .qna-title {
+        font-size: 18px;
+    }
+    .qna-input, .qna-textarea {
+        padding: 6px;
+    }
+    .qna-submit {
+        padding: 6px;
+    }
+}

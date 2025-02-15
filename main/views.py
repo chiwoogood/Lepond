@@ -27,3 +27,11 @@ def agreement(request):
 
 def policy(request):
     return render(request,'main/policy.html')
+
+
+def test(request):
+    return render(request, 'main/test.html')
+
+
+def send_alimtalk(request):
+    pass
