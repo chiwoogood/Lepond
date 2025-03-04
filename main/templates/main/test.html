@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알림톡 전송</title>
+    <script>
+        function sendAlimtalk() {
+            const phoneNumber = document.getElementById("phone").value;
+            const message = document.getElementById("message").value;
+            const templateCode = document.getElementById("template_code").value;
+
+            if (!phoneNumber || !message || !templateCode) {
+                alert("전화번호, 메시지, 템플릿 코드를 입력하세요.");
+                return;
+            }
+
+            fetch("/main/send_alimtalk/", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    to: phoneNumber,
+                    message: message,
+                    template_code: templateCode
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    alert("오류 발생: " + data.error);
+                } else {
+                    alert("알림톡이 성공적으로 전송되었습니다!");
+                }
+            })
+            .catch(error => {
+                console.error("오류 발생:", error);
+                alert("전송 실패");
+            });
+        }
+    </script>
+</head>
+<body>
+    <h2>알림톡 전송</h2>
+    <label for="phone">전화번호:</label>
+    <input type="text" id="phone" placeholder="01012345678"><br><br>
+
+    <label for="message">메시지:</label>
+    <input type="text" id="message" placeholder="보낼 메시지 입력"><br><br>
+
+    <label for="template_code">템플릿 코드:</label>
+    <input type="text" id="template_code" placeholder="알림톡 템플릿 코드 입력"><br><br>
+
+    <button onclick="sendAlimtalk()">전송</button>
+</body>
+</html>
