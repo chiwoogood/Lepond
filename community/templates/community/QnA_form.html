@@ -9,7 +9,7 @@
 {% block content %}
 <div class="qna-container">
     <h2 class="qna-title">QnA 작성</h2>
-    <form method="post" action="" class="qna-form">
+    <form method="post" action="{% url 'community:QnA_form' %}" class="qna-form">
         {% csrf_token %}
         
         <label for="category">카테고리</label>
@@ -28,7 +28,7 @@
         </select>
 
         <label for="title">제목</label>
-        <input type="text" name="title" id="title" class="qna-input" placeholder="제목을 입력하세요" required>
+        <input type="text" name="title" id="title" class="qna_input" placeholder="제목을 입력하세요" required>
         
         <label for="content">내용</label>
         <textarea name="content" id="content" class="qna-textarea" placeholder="질문 내용을 입력하세요" required></textarea>

@@ -3,10 +3,10 @@ from users.models import CustomUser
 from shop.models import Product
 
 class QnaCategory(models.TextChoices):
-    SHIPPING = 'shipping', '배송 관련'
-    PAYMENT = 'payment', '결제, 환불 관련'
-    PRODUCT = 'product', '제품 관련'
-    OTHER = 'other', '기타 관련'
+    SHIPPING = 'shipping', '배송 문의'
+    PAYMENT = 'payment', '결제, 환불 문의'
+    PRODUCT = 'product', '제품 문의'
+    OTHER = 'other', 'etc'
 
 class Qna(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="사용자")
