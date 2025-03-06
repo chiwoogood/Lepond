@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'community/css/notice.css' %}">
+{% endblock head %}
+
+{% block content %}
+
+<div class="board-container">
+    <div class="categories">
+        <a href="{% url 'community:review' %}">Review</a>
+        <a href="{% url 'community:notice' %}">Notice</a>
+        <a href="{% url 'community:QnA' %}">Q&A</a>
+    </div>
+
+    <div class="">
+
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+{% endblock script %}
