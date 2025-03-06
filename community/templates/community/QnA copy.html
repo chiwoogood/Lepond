@@ -40,12 +40,14 @@
             {% endfor %}
 
             {% for qna in QnAs %}
+            {% if request.user == qna.user or request.user.is_superuser %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td><a href="{% url 'community:QnA_info' pk=qna.pk %}">{{ qna.title }}</a></td>
                     <td>{{ qna.created_at|date:"Y-m-d" }}</td>
                     <td>{{ qna.user.name }}</td>
                 </tr>
+            {% endif %}
         {% endfor %}
         </tbody>
     </table>

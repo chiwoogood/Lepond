@@ -19,21 +19,23 @@
             <tr>
                 <th>#</th>
                 <th>Notice</th>
+                <th>Date</th>
+                <th>Writer</th>
             </tr>
         </thead>
         <tbody>
+            {% for notice in notices %}
             <tr>
                 <td>1</td>
-                <td>Welcome to the Board</td>
+                <td>
+                    <a href="{% url 'community:notice_detail' notice.pk %}">
+                        {{ notice.title }}
+                    </a>
+                </td>
+                <td>{{ notice.created_at|date:"Y-m-d" }}</td> 
+                <td>Lepond</td>
             </tr>
-            <tr>
-                <td>2</td>
-                <td>Second Post</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Another Update</td>
-            </tr>
+            {% endfor %}            
         </tbody>
     </table>
 

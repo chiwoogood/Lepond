@@ -11,7 +11,6 @@
     <h2 class="qna-title">QnA 작성</h2>
     <form method="post" action="{% url 'community:QnA_form' %}" class="qna-form">
         {% csrf_token %}
-        
         <label for="category">카테고리</label>
         <select name="category" id="category" class="qna-input">
             <option value="" selected>선택해주세요.</option>
@@ -22,9 +21,9 @@
 
         <label for="product">관련 제품</label>
         <select name="product" id="product" class="qna-input">
-            <!-- {% for product in products %}
+            {% for product in products %}
                 <option value="{{ product.id }}">{{ product.name }}</option>
-            {% endfor %} -->
+            {% endfor %}
         </select>
 
         <label for="title">제목</label>
