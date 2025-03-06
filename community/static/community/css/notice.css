@@ -1,7 +1,7 @@
 
 .board-container {
-    width: 80%;
-    max-width: 800px;
+    width: 100%;
+    max-width: 1200px;
     background-color: #fff;
     border-radius: 8px;
     padding: 20px;
@@ -10,7 +10,6 @@
 
 
 .categories {
-    max-width: 800px;
     display: flex;
     flex-wrap: wrap; 
     justify-content: center; 

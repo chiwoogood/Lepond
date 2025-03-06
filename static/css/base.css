@@ -172,7 +172,6 @@ a:hover {
         display: flex;
     }
 
-
     .nav-links, .nav-users {
         display: none;
     }
@@ -329,7 +328,7 @@ a:hover {
 }
 
 .container {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
