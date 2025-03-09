@@ -16,6 +16,7 @@ def notice(request):
     return render(request, 'community/notice.html', context)
 
 def notice_detail(request, pk):
+    
     return render(request, 'community/notice_detail.html')
 
 
@@ -103,4 +104,7 @@ def review(request):
         return render(request, 'community/review.html')
 
 def review_form(request):
-    return render(request, 'commuinty/review_form.html')
+    return render(request, 'community/review_form.html')
+
+
+

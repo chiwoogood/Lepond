@@ -1,7 +1,6 @@
 from django.shortcuts import render
-from .models import MainImage
+from .models import MainImage, About
 from django.contrib import messages
-# Create your views here.
 
 
 
@@ -20,7 +19,11 @@ def main(request):
 
 
 def about(request):
-    return render(request,'main/about.html')
+    about = About.objects.last()
+    context = {
+        'about' : about
+    }
+    return render(request,'main/about.html', context)
 
 def agreement(request):
     return render(request,'main/agreement.html')

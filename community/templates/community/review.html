@@ -9,9 +9,9 @@
 {% block content %}
 <div class="board-container">
     <div class="categories">
-        <a href="{% url 'community:QnA' %}">Q&A</a>
-        <a href="{% url 'community:notice' %}">Notice</a>
         <a href="{% url 'community:review' %}">Review</a>
+        <a href="{% url 'community:notice' %}">Notice</a>
+        <a href="{% url 'community:QnA' %}">Q&A</a>
     </div>
     <!-- Table -->
     <table class="board-table">
@@ -45,8 +45,7 @@
 
         </tbody>
     </table>
-
-    <a href="{% url 'community:QnA_form' %}">글쓰기</a>
+    <a href="{% url 'community:review_form' %}">글쓰기</a>
 
     <div class="pagination">
         <button class="page-btn prev">prev</button>

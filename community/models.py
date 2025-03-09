@@ -42,3 +42,9 @@ class Notice(models.Model):
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="작성일")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="수정일")
     is_published = models.BooleanField(default=True, verbose_name="공개 여부")
+
+
+
+# class Review(models.Model):
+#     content = models.TextField(verbose_name="리뷰 내용", blank=True, Null=True)
+#     created_at = models.DateTimeField(auto_now_add=True, verbose_name="작성일")

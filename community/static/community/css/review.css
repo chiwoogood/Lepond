@@ -1,6 +1,6 @@
 
 .board-container {
-    width:100%;
+    width: 100%;
     max-width: 1200px;
     background-color: #fff;
     border-radius: 8px;
@@ -78,6 +78,19 @@ h1 {
 
 .board-table td {
     color: #333;
+}
+
+.write-btn {
+    float: right; 
+    margin: 10px 10px; 
+    padding: 8px 12px; 
+    text-decoration: none; 
+    border-radius: 5px;
+}
+
+.write-btn:hover {
+
+    text-decoration: underline; 
 }
 
 

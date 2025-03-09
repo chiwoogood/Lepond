@@ -11,6 +11,7 @@ def signin(request):
 
 @login_required
 def mypage(request):
+    #message 추가    
     return render(request, 'users/mypage.html')
 
 

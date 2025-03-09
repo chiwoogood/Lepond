@@ -25,3 +25,21 @@ class FooterMessage(models.Model):
     uploaded_at = models.DateTimeField(auto_now_add=True, verbose_name="업로드 시간")
     def __str__(self):
         return self.content
+    
+
+class About(models.Model):
+    title = models.CharField(max_length=100, verbose_name="타이틀")
+    content = models.CharField(max_length=255, verbose_name="소개 내용")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="업로드 시간")
+    
+    def __str__(self):
+        return self.title
+
+class Policy(models.Model):
+    title = models.CharField(max_length=100, verbose_name="타이틀")
+    content = models.CharField(max_length=500, verbose_name="정책 내용")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="업로드 시간")
+    def __str__(self):
+        return self.title
+    
+ 
