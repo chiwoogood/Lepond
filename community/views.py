@@ -9,7 +9,6 @@ from django.http import HttpResponseForbidden
 
 def notice(request):
     notices = Notice.objects.all()
-
     context = {
         "notices" : notices,
     }
@@ -90,12 +89,12 @@ def QnA_form(request):
 def QnA_detail(request, pk):
     qna = get_object_or_404(Qna, pk=pk)
 
-    # 게시글 작성자 또는 관리자만 접근 가능
     if not (request.user == qna.user or request.user.is_superuser):
         messages.error(request, "접근 권한이 없습니다.")
-        return redirect('community:QnA')  # 게시글 목록 페이지로 이동
+        return redirect('community:QnA')
 
     return render(request, 'community/qna_detail.html', {'qna': qna})
+
 
 def review(request):
     if request.method == 'POST':
@@ -103,6 +102,7 @@ def review(request):
     else:
         return render(request, 'community/review.html')
 
+@login_required
 def review_form(request):
     return render(request, 'community/review_form.html')
 

@@ -11,11 +11,12 @@ def signin(request):
 
 @login_required
 def mypage(request):
-    #message 추가    
+
     return render(request, 'users/mypage.html')
 
-
 def user_signin(request):
+    next_url = request.GET.get('next', reverse('main:main'))
+    
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
@@ -30,8 +31,11 @@ def user_signin(request):
             return redirect(next_url)
         else:
             messages.error(request, 'Login failed. Please check your credentials.')
-    
-    return render(request, 'users/signin.html')
+
+    if 'next' in request.GET:  
+        messages.warning(request, '로그인이 필요합니다.')
+
+    return render(request, 'users/signin.html', {'next': next_url})
 
 def user_signup(request):
     if request.method == 'POST':
