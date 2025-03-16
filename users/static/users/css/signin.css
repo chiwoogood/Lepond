@@ -110,13 +110,11 @@ form button:hover {
   border-bottom: 2px solid #222;
 }
 
-/* 반응형: 작은 화면에서는 한 열로 배치 */
 @media (max-width: 768px) {
   .signup-grid {
     grid-template-columns: 1fr;
   }
 }
-
 
 .modal {
   display: none; 

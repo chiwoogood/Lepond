@@ -73,7 +73,6 @@ const forgotPasswordModal = document.getElementById('forgot-password-modal');
 const findIdModal = document.getElementById('find-id-modal');
 const closeModalButtons = document.querySelectorAll('.close-modal');
 
-// Show Modals
 forgotPasswordLink.addEventListener('click', (event) => {
   event.preventDefault();
   forgotPasswordModal.style.display = 'block';
@@ -84,7 +83,6 @@ findIdLink.addEventListener('click', (event) => {
   findIdModal.style.display = 'block';
 });
 
-// Close Modals
 closeModalButtons.forEach(button => {
   button.addEventListener('click', () => {
     forgotPasswordModal.style.display = 'none';
@@ -92,7 +90,6 @@ closeModalButtons.forEach(button => {
   });
 });
 
-// Close modal when clicking outside of it
 window.addEventListener('click', (event) => {
   if (event.target === forgotPasswordModal) {
     forgotPasswordModal.style.display = 'none';

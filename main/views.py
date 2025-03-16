@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import MainImage, About
+from .models import MainImage, About, Policy, Agreement
 from django.contrib import messages
 
 
@@ -26,10 +26,20 @@ def about(request):
     return render(request,'main/about.html', context)
 
 def agreement(request):
-    return render(request,'main/agreement.html')
+    agreement = Agreement.objects.last()
+    context = {
+        'agreement' : agreement,
+    }
+    return render(request,'main/agreement.html', context)
 
 def policy(request):
-    return render(request,'main/policy.html')
+    policy = Policy.objects.last()
+    context = {
+        'policy' : policy,
+    }
+    return render(request,'main/policy.html', context)
+
+
 
 
 def test(request):

@@ -1,24 +1,38 @@
 from django.contrib import admin
-from .models import Product, ProductColor, ProductDetail, ProductImage
+from .models import Product, ProductColor, ProductDetail, ProductImage, Cart, CartItem
 
-# 색상 관리용 Inline
-class ProductColorInline(admin.TabularInline):
-    model = ProductColor
-    extra = 3  # 기본으로 표시할 색상 입력 필드 수
-
-# 상세 정보 관리용 Inline
-class ProductDetailInline(admin.TabularInline):
-    model = ProductDetail
-    extra = 1  # 기본으로 표시할 상세 정보 입력 필드 수
-
-# 이미지 관리용 Inline
-class ProductImageInline(admin.TabularInline):
-    model = ProductImage
-    extra = 2  # 기본으로 표시할 이미지 입력 필드 수
-
-# Product 관리자 페이지에서 모두 통합
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'mileage','introduce')
-    search_fields = ('name',)
-    inlines = [ProductColorInline, ProductDetailInline, ProductImageInline]  # 모든 Inline 추가
+    list_display = ("name", "price", "mileage", "status")
+    search_fields = ("name",)
+    list_filter = ("status",)
+
+
+@admin.register(ProductColor)
+class ProductColorAdmin(admin.ModelAdmin):
+    list_display = ("product", "color")
+    search_fields = ("product__name", "color")
+
+
+@admin.register(ProductDetail)
+class ProductDetailAdmin(admin.ModelAdmin):
+    list_display = ("product", "material")
+    search_fields = ("product__name", "material")
+
+
+@admin.register(ProductImage)
+class ProductImageAdmin(admin.ModelAdmin):
+    list_display = ("product", "image", "description")
+    search_fields = ("product__name",)
+
+
+@admin.register(Cart)
+class CartAdmin(admin.ModelAdmin):
+    list_display = ("user", "session_key", "created_at", "updated_at")
+    search_fields = ("user__username", "session_key")
+
+
+@admin.register(CartItem)
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ("cart", "product", "quantity", "selected_color")
+    search_fields = ("cart__user__username", "product__name")
