@@ -1,1 +1,10 @@
+__pycache__/
+*.py[cod]
+
+
 venv/
+staticfiles/
+
+.env
+
+Readme2.md
