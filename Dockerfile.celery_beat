@@ -10,5 +10,5 @@ RUN pip install -r requirements.txt
 COPY wait-for-redis.sh /wait-for-redis.sh
 RUN chmod +x /wait-for-redis.sh
 
-# CMD ["sh", "-c", "/wait-for-redis.sh redis celery -A larva beat --loglevel=info --scheduler django_celery_beat.schedulers.DatabaseScheduler"]
-CMD ["sh", "-c", "/wait-for-redis.sh redis celery -A larva worker --loglevel=info & celery -A larva beat --loglevel=info --scheduler django_celery_beat.schedulers.DatabaseScheduler"]
+# CMD ["sh", "-c", "/wait-for-redis.sh redis celery -A lepond beat --loglevel=info --scheduler django_celery_beat.schedulers.DatabaseScheduler"]
+CMD ["sh", "-c", "/wait-for-redis.sh redis celery -A lepond worker --loglevel=info & celery -A lepond beat --loglevel=info --scheduler django_celery_beat.schedulers.DatabaseScheduler"]

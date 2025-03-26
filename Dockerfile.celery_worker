@@ -17,4 +17,4 @@ RUN chmod +x /wait-for-redis.sh
 RUN useradd -m celeryuser
 USER celeryuser
 
-CMD ["sh", "-c", "/wait-for-redis.sh redis celery -A larva worker --loglevel=info"]
+CMD ["sh", "-c", "/wait-for-redis.sh redis celery -A lepond worker --loglevel=info"]
