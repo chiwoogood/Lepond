@@ -137,19 +137,6 @@ form button:hover {
   flex-direction: column;
 }
 
-button[onclick^="sample4_execDaumPostcode"] {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
-  border: none;
-  background: #222;
-  color: white;
-  padding: 0 15px;
-  cursor: pointer;
-  border-radius: 0 8px 8px 0;
-  font-size: 14px;
-}
 
 .additional-container {
   display: flex;

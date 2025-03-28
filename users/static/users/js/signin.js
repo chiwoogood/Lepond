@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
     signupForm.classList.remove('active');
     loginBtn.classList.add('active');
     signupBtn.classList.remove('active');
-    loginContainer.classList.remove('signup-mode'); // 로그인 시 좁게
+    loginContainer.classList.remove('signup-mode');
   });
 
   signupBtn.addEventListener('click', () => {

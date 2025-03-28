@@ -32,23 +32,28 @@
     {% csrf_token %}
     <div class="signup-grid">
       <div class="left-column">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="email" name="email" placeholder="Email" required>
+        <input type="text" name="username" placeholder="ID" required>
         <input type="password" name="password1" placeholder="Password" required>
         <input type="password" name="password2" placeholder="Password Confirmation" required>
+        <input type="email" name="email" placeholder="Email" required>
         <input type="text" name="name" placeholder="성함" required>
+        <input type="text" name="phone_number" placeholder="전화번호" required>
+        <label style="margin: 10px 0;">
+          <input type="checkbox" name="marketing_agree">
+          마케팅 수신 동의
+        </label>
       </div>
       <div class="right-column">
         <div style="max-width: 400px;">
           <div class="postcode-wrapper">
-            <input type="text" id="postcode" placeholder="우편번호" disabled required>
-            <button type="button" class="address-btn">찾기</button>
+            <input type="text" id="postcode" name="postcode" placeholder="우편번호" readonly required>
+            <button type="button" class="address-btn" onclick="sample4_execDaumPostcode()">찾기</button>
           </div>
         </div>
         
-        <input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" disabled>
-        <input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소" disabled>
-        <input type="text" name="extraAddress" id="extraAddress" placeholder="참고주소" disabled>
+        <input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" readonly>
+        <input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소" readonly>
+        <input type="text" name="extraAddress" id="extraAddress" placeholder="참고주소" readonly>
         <input type="text" name="detailAddress" id="detailAddress" placeholder="상세주소">
         <select name="bank" required>
           <option value="">은행 선택</option>
