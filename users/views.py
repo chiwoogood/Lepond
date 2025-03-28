@@ -15,7 +15,11 @@ def mypage(request):
     return render(request, 'users/mypage.html')
 
 def user_signin(request):
+    
     next_url = request.GET.get('next') or reverse('main:main')
+    
+    if request.method == 'GET' and request.GET.get('next'):
+        messages.info(request, '로그인이 필요한 서비스입니다.')
 
     if request.method == 'POST':
         username = request.POST.get('username')
