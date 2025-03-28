@@ -13,7 +13,7 @@
     <button id="signup-btn">Sign Up</button>
   </div>
 
-
+  <!-- 로그인 폼 -->
   <form id="login-form" class="form active" method="post" action="{% url 'users:signin' %}">
     {% csrf_token %}
     <input type="hidden" name="next" value="{{ request.GET.next }}">
@@ -27,7 +27,7 @@
     </div>
   </form>
 
-
+  <!-- 회원가입 폼 -->
   <form method="post" class="signup-form form" action="{% url 'users:signup' %}">
     {% csrf_token %}
     <div class="signup-grid">
@@ -39,13 +39,13 @@
         <input type="text" name="name" placeholder="성함" required>
       </div>
       <div class="right-column">
-        <div style="max-width: 400px;">
-          <div class="postcode-wrapper">
-            <input type="text" id="postcode" placeholder="우편번호" disabled required>
-            <button type="button" class="address-btn">찾기</button>
-          </div>
+        <div style="position: relative; display: inline-block; width: 300px;">
+          <input type="text" id="postcode" placeholder="우편번호" name="postcode" style="width: 100%; padding-right: 80px;" required disabled>
+          <button type="button" onclick="sample4_execDaumPostcode()" style="position: absolute; right: 0; top: 0; height: 100%; border: none; background: #007bff; color: white; padding: 0 15px; cursor: pointer; border-radius: 0 4px 4px 0;">
+              찾기
+          </button>
         </div>
-        
+        <br>
         <input type="text" name="roadAddress" id="roadAddress" placeholder="도로명주소" disabled>
         <input type="text" name="jibunAddress" id="jibunAddress" placeholder="지번주소" disabled>
         <input type="text" name="extraAddress" id="extraAddress" placeholder="참고주소" disabled>
@@ -63,6 +63,7 @@
   </form>
 </div>
 
+<!-- 비밀번호 찾기 모달 -->
 <div id="forgot-password-modal" class="modal">
   <div class="modal-content">
     <span class="close-modal">&times;</span>
@@ -72,6 +73,7 @@
   </div>
 </div>
 
+<!-- 아이디 찾기 모달 -->
 <div id="find-id-modal" class="modal">
   <div class="modal-content">
     <span class="close-modal">&times;</span>
@@ -82,7 +84,7 @@
   </div>
 </div>
 
-
+<!-- 다음 주소 API Layer -->
 <div id="layer" style="
     display:none;
     position:fixed;
@@ -109,6 +111,7 @@
     </button>
 </div>
 
+<!-- ✅ 마케팅 동의 모달 -->
 {% if marketing_required %}
 <div id="marketing-modal" class="modal" style="display: block;">
   <div class="modal-content">
@@ -133,6 +136,7 @@
 <script src="{% static 'users/js/signin.js' %}"></script>
 
 <script>
+  // 마케팅 모달 닫기
   const closeMarketingBtn = document.querySelector(".close-marketing-modal");
   if (closeMarketingBtn) {
     closeMarketingBtn.addEventListener("click", () => {

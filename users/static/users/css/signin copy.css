@@ -1,38 +1,16 @@
 body {
+  background: linear-gradient(to bottom right, #f9f9f9, #ffffff);
   font-family: 'Noto Serif KR', serif;
 }
-
 
 .login-container {
   background-color: white;
   padding: 3rem 2rem;
   border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
   max-width: 600px;
   margin: 6rem auto;
   transition: all 0.3s ease;
-}
-
-.login-container.signup-mode {
-  max-width: 1000px;
-}
-
-.login-container.signup-mode {
-  max-width: 1000px;
-}
-
-.signup-form {
-  width: 100%;
-  max-width: 1000px;
-}
-
-
-.signup-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  width: 100%;
-  max-width: 1000px; 
-  margin-top: 20px;
 }
 
 .toggle-buttons {
@@ -76,15 +54,8 @@ form h2 {
   text-transform: uppercase;
 }
 
-input, select, label {
-  font-family: 'Noto Serif KR', serif;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select,
-textarea {
+form input,
+form select {
   margin-bottom: 20px;
   padding: 12px 15px;
   border: none;
@@ -97,9 +68,8 @@ textarea {
   transition: all 0.2s ease-in-out;
 }
 
-input:focus,
-select:focus,
-textarea:focus {
+form input:focus,
+form select:focus {
   background-color: white;
   box-shadow: inset 0 0 0 2px #222;
   outline: none;
@@ -170,6 +140,7 @@ button[onclick^="sample4_execDaumPostcode"] {
   color: #222;
 }
 
+/* ✅ 공통 모달 스타일 (비밀번호 찾기, ID 찾기, 마케팅 동의) */
 .modal {
   display: none;
   position: fixed;
@@ -210,6 +181,12 @@ button[onclick^="sample4_execDaumPostcode"] {
   background-color: #f9f9f9;
 }
 
+.modal-content input:focus {
+  background-color: #fff;
+  outline: none;
+  border-color: #222;
+}
+
 .modal-content button {
   width: 100%;
   padding: 12px;
@@ -239,6 +216,14 @@ button[onclick^="sample4_execDaumPostcode"] {
   color: #000;
 }
 
+/* ✅ 마케팅 동의 모달 내 라디오 버튼 여백 */
+#marketing-form label {
+  font-size: 15px;
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+}
+
 @keyframes modalFadeIn {
   from {
     opacity: 0;
@@ -260,49 +245,4 @@ button[onclick^="sample4_execDaumPostcode"] {
     padding: 2rem 1.5rem;
     margin-top: 3rem;
   }
-}
-
-.postcode-wrapper {
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-  max-width: 400px;
-  max-height: 45px;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.postcode-wrapper input {
-  flex: 1;
-  padding: 12px 15px;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  background-color: #f1f1f1;
-  box-shadow: inset 0 0 0 1px #ddd;
-  font-family: 'Noto Serif KR', serif;
-}
-
-.postcode-wrapper input:focus {
-  background-color: white;
-  box-shadow: inset 0 0 0 2px #222;
-  outline: none;
-}
-
-.address-btn {
-  padding: 12px 15px;
-  background-color: #222;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  font-family: 'Noto Serif KR', serif;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  white-space: nowrap;
-  margin: 0;
-}
-
-.address-btn:hover {
-  background-color: #555;
 }

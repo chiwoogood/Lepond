@@ -15,49 +15,51 @@ def mypage(request):
     return render(request, 'users/mypage.html')
 
 def user_signin(request):
-    next_url = request.GET.get('next', reverse('main:main'))
-    
+    next_url = request.GET.get('next') or reverse('main:main')
+
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
         user = authenticate(request, username=username, password=password)
-        
+
         if user is not None:
             login(request, user)
-            next_url = request.POST.get('next', reverse('main:main')) 
-            if not next_url.strip():  
-                next_url = reverse('main:main')
             messages.success(request, '로그인이 완료되었습니다.')
-            return redirect(next_url)
+            return redirect(request.POST.get('next') or reverse('main:main'))
         else:
-            messages.error(request, 'Login failed. Please check your credentials.')
+            messages.error(request, '아이디 또는 비밀번호가 올바르지 않습니다.')
 
-    if 'next' in request.GET:  
-        messages.warning(request, '로그인이 필요합니다.')
-
-    return render(request, 'users/signin.html', {'next': next_url})
+    return render(request, 'users/signin.html', {
+        'next': next_url,
+        'user_form': CustomUserCreationForm(),
+        'address_form': AddressForm(),
+    })
 
 def user_signup(request):
     if request.method == 'POST':
         user_form = CustomUserCreationForm(request.POST)
         address_form = AddressForm(request.POST)
+
         if user_form.is_valid() and address_form.is_valid():
             user = user_form.save()
             address = address_form.save(commit=False)
             address.user = user
             address.save()
-            messages.success(request, "Registration successful. Please log in.")
+
+            messages.success(request, "회원가입이 완료되었습니다. 로그인해주세요.")
             return redirect('users:signin')
         else:
-            messages.error(request, "Registration failed. Please correct the errors.")
+            messages.error(request, "회원가입에 실패했습니다. 정보를 다시 확인해주세요.")
     else:
         user_form = CustomUserCreationForm()
         address_form = AddressForm()
-
+    
     context = {
-        'user_form': user_form,
-        'address_form': address_form,
+        'user_form' : user_form,
+        'address_form' : address_form,
+        'next' : reverse('main:main'),
     }
+
     return render(request, 'users/signin.html', context)
 
 def user_signout(request):

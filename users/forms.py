@@ -2,58 +2,61 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import CustomUser, Address
 
+
 class CustomUserCreationForm(UserCreationForm):
+    marketing_agree = forms.BooleanField(
+        required=False,
+        label="마케팅 수신 동의"
+    )
+
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'name', 'phone_number', 'bank', 'bankAccount']
-        widgets = {
-            'password': forms.PasswordInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
-        }
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data.get("password1")
-        password_confirm = cleaned_data.get("password2")
+        fields = [
+            'username',
+            'email',
+            'password1',
+            'password2',
+            'name',
+            'phone_number',
+            'bank',
+            'bankAccount',
+            'marketing_agree',
+        ]
 
-        if password and password_confirm and password != password_confirm:
-            raise forms.ValidationError("Passwords do not match.")
-        return cleaned_data
-    
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if CustomUser.objects.filter(email=email).exists():
-            raise forms.ValidationError("This email is already in use.")
+        if CustomUser.objects.filter(email__iexact=email).exists():
+            raise forms.ValidationError("이미 사용 중인 이메일입니다.")
         return email
 
 
 class AddressForm(forms.ModelForm):
     class Meta:
         model = Address
-        fields = ['roadAddress', 'jibunAddress', 'extraAddress', 'detailAddress','postcode']
-        widgets = {
-            'roadAddress': forms.TextInput(attrs={'class': 'form-control'}),
-            'jibunAddress': forms.TextInput(attrs={'class': 'form-control'}),
-            'extraAddress': forms.TextInput(attrs={'class': 'form-control'}),
-            'detailAddress': forms.TextInput(attrs={'class': 'form-control'}),
-            'postcode': forms.TextInput(attrs={'class': 'form-control'}),
-        }
+        fields = [
+            'postcode',
+            'roadAddress',
+            'jibunAddress',
+            'extraAddress',
+            'detailAddress'
+        ]
+
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'name', 'phone_number', 'bank', 'bankAccount']
-        widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'phone_number': forms.TextInput(attrs={'class': 'form-control'}),
-            'bank': forms.TextInput(attrs={'class': 'form-control'}),
-            'bankAccount': forms.TextInput(attrs={'class': 'form-control'}),
-        }
+        fields = [
+            'username',
+            'email',
+            'name',
+            'phone_number',
+            'bank',
+            'bankAccount',
+            'marketing_agree',
+        ]
 
     def clean_email(self):
         email = self.cleaned_data.get('email')
-        if CustomUser.objects.filter(email=email).exclude(pk=self.instance.pk).exists():
-            raise forms.ValidationError("This email is already in use.")
+        if CustomUser.objects.filter(email__iexact=email).exclude(pk=self.instance.pk).exists():
+            raise forms.ValidationError("이미 사용 중인 이메일입니다.")
         return email
