@@ -81,7 +81,7 @@
 ## 2. Version
 
 - ### Backend
-  - Django 4.2.4
+  - Django 4.2.20
   - Python 3.11.9
 
 - ### Database
