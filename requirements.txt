@@ -17,6 +17,7 @@ Django==4.2.4
 django-appconf==1.0.6
 django-carton==1.2.1
 django-celery-beat==2.7.0
+django-extensions==3.2.3
 django-extra-views==0.14.0
 django-haystack==3.3.0
 django-imagekit==5.0.0
@@ -41,6 +42,8 @@ pilkit==3.0
 pillow==11.0.0
 prompt_toolkit==3.0.50
 purl==1.6
+pydot==3.0.4
+pyparsing==3.2.3
 python-crontab==3.2.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.0

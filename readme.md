@@ -1,5 +1,4 @@
-# Lepond
-[Lepond](https://lepond.kr)
+# [Lepond](https://lepond.kr)
 
 ## 📌 프로젝트 개요
 
@@ -101,24 +100,72 @@
   - Solapi AlimTalk API
   - daum 도로명 주소 API
 
-## 4.Structure
-accounts/ : 사용자 인증, 회원 가입, 로그인, 주소지 설정, 내 Q&A 모아보기, 내 Review 모아보기, 회원 정보 수정 
+## 3. 구조
 
-shop/ : Product list, Product detail, Product Image, Thumbnails, Color, status, metarial, caution, content, review, Q%A, User Rating
+---
 
-main/ : Privacy, Instagram, About Lepond, Contact, Main Image, footer message, message Framework
+### `accounts/`
+- 사용자 인증
+- 회원 가입 / 로그인
+- 주소지 설정
+- 내 Q&A 모아보기
+- 내 Review 모아보기
+- 회원 정보 수정
 
-community/ : Notice, Q&A List, Q%A 작성, Review List, Review, 
+---
 
-payments/ : 결제 예정
+### `shop/`
+- 상품 리스트 (Product List)
+- 상품 상세 (Product Detail)
+- 상품 이미지 및 썸네일 (Product Image / Thumbnails)
+- 색상 (Color), 상태 (Status), 소재 (Material), 주의사항 (Caution)
+- 상품 설명 (Content)
+- 상품 후기 (Review)
+- 상품 문의 (Q&A)
+- 사용자 평점 (User Rating)
 
-carts/ : 장바구니 예정
+---
 
-templates/ : base.html, product.html로 템플릿 상속
-base.html과 product.html과 다른 차이는 product.html를 상속하는 경우에는 제공하는 Image, html이 많아 모바일에 적합
+###  `main/`
+- 개인정보 처리방침 (Privacy)
+- 인스타그램 연동 (Instagram)
+- About Lepond
+- Contact
+- 메인 이미지 (Main Image)
+- 푸터 메시지 (Footer Message)
+- 메시지 프레임워크 (Message Framework)
+
+---
+
+### `community/`
+- 공지사항 (Notice)
+- Q&A 리스트
+- Q&A 작성
+- 리뷰 리스트
+- 리뷰 상세
+
+---
+
+### `payments/` **(예정)**
+- 결제 기능 구현 예정
+
+---
+
+### `carts/` **(예정)**
+- 장바구니 기능 구현 예정
+
+---
+
+### `templates/`
+- `base.html`  
+  - 기본 템플릿  
+- `product.html`  
+  - 상품 전용 템플릿  
+  - 이미지가 길어서 스크롤이 필요한 페이지에서 상속(프로덕트 리스트, 프로덕트 디테일)
 
 
-/ : 주문/결제 기능
+
+
 
 ## 5. ERD
 
@@ -126,7 +173,7 @@ base.html과 product.html과 다른 차이는 product.html를 상속하는 경�
 ![메인ERD](./mainerd.png)
 admin페이지에서 메인 이미지, FooterMessage등을 변경 가능
 봄에는 노란 꽃 이미지, 여름엔 좀 시원해보이는 걸로, 가을에는 낙엽, 겨울에는 하얗게
-FooterMessage는 배송이 지연되거나 명절 때 이용할 계획(ex 추석 명절로 ~~~날 부터 배달 시작돼염) 
+FooterMessage는 배송이 지연되거나 명절 때 이용할 계획(ex 추석 명절로 ~~~날 부터 배달 시작됩니다) 
 
 ### 유저 ERD
 ![유저ERD](./usererd.png)
@@ -157,27 +204,30 @@ PW : lepondtest123!
 
 
 ## 8. 개선 예정 사항
-쇼핑몰 프로젝트를 AWS EC2 기반으로 구축하면서 인프라에 대한 이해도와 실습 경험을 쌓을 수 있었다는 점에서 의미가 있었지만, 1인 개발자 입장에서 유지 비용 측면에서는 다소 부담이 되는 부분이 있었다.
 
-EC2 + EBS + S3 + 도메인 + 알림톡(Solapi) 등을 모두 합산하면,
-월 기본 유지비만 약 5만 원 이상 발생하고, 알림톡 사용량에 따라 6~7만 원을 넘어설 수도 있음
+총 비용
+EBS 확장 약 10,000
+Domain ITEasy 1년 12,660
+EC2 월 약 49,900
+
+Solapi 선불 30,000원 충전
+Solapi 카카오톡 발송 비용(회원 가입, 발송, 결제 완료)건당 13원
+Solapi 카카오톡 광고 비용 건당 19원
+
+EC2 + EBS + S3 + 도메인 + 알림톡등을 모두 합산하면, 월 기본 유지비만 약 5만 원 이상 발생하고, 알림톡 사용량에 따라 6~7만 원을 넘어설 수도 있음
+(아직 실제 운영하지 않아 예측이 불가......)
 
 처음 예상했던 비용보다 실제 운영비가 더 높게 나왔고,
-Cafe24와 같은 호스팅 서비스와 비교했을 때 '크게 저렴하다는 느낌은 들지 않음'
+Cafe24보다 저렴하지 않음....
 
-또한 EC2는 설정 자유도는 높지만 트래픽 과금, 스토리지 관리, 로그 처리 등을 모두 수동으로 해야 해 운영 부담도 있었음.
-
-✅ 향후 계획
-프로젝트 기능이 완성된 이후에는 비용 효율성과 운영 간소화를 위해,
-AWS Lightsail로 이전할 예정이다.
-
-Lightsail은 월 3.5달러(약 5천 원)부터 시작 가능하며,
-트래픽 포함 요금제로 예측 가능한 비용 관리가 가능
-
+아마 제일 돈이 많이 나가는 EC2를 AWS Lightsail로 갈아타야 될듯.
 정말 만약에 너무 잘되면 다시 EC2로 옮길 예정
 
 
-이미지 기본 가로 세로 px 설정
-- 600 * 800으로 고정할 때 이쁜 것 같긴함 
-페이지 렌더링 지연시 Bootstrap Spinner추가 예정
-404.page, 50x page등 에러시 페이지 개선 예정
+- 썸네일 옷 이미지 600 * 800으로 고정 예정
+- 이미지 파일은 850 * 600으로 고정 예정(길게 나와야 이쁨)
+
+ 
+- 페이지 렌더링 지연시 Bootstrap Spinner추가 예정
+- 404.page, 50x page등 에러시 페이지 개선 예정
+- 
