@@ -29,19 +29,6 @@
                     </li>
                     <li class="dropdown">
                         <a href="{% url 'shop:items' %}">&nbsp;SHOP&nbsp;</a>
-                        <div class="dropdown-content">
-                            <table>
-                                {% for category in categories %}
-                                    <tr>
-                                        <td>
-                                            <a href="{% url 'shop:items' %}?category={{ category.id }}">
-                                                {{ category.name }}
-                                            </a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
                     </li>
                     <li class="dropdown">
                         <a href="{% url 'main:about' %}">ABOUT</a>
