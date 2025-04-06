@@ -167,7 +167,7 @@ a:hover {
     display: block;
 }
 
-@media (max-width: 955px) {
+@media (max-width: 993px) {
     .hamburger {
         display: flex;
     }

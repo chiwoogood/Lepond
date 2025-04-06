@@ -1,30 +1,38 @@
 from django.contrib import admin
-from .models import Product, ProductColor, ProductDetail, ProductImage, Cart, CartItem
+from .models import ProductCategory, Product, ProductThumbnail, ProductDetail, ProductColor, ProductImage, Cart, CartItem
+
+@admin.register(ProductCategory)
+class ProductCategoryAdmin(admin.ModelAdmin):
+    list_display = ("name", "order")
+    list_editable = ("order",) 
+
+class ProductThumbnailInline(admin.StackedInline):
+    model = ProductThumbnail
+    extra = 1
+
+class ProductDetailInline(admin.StackedInline):
+    model = ProductDetail
+    extra = 1
+
+class ProductImageInline(admin.StackedInline):
+    model = ProductImage
+    extra = 1
+
+class ProductColorInline(admin.StackedInline):
+    model = ProductColor
+    extra = 1
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("name", "price", "mileage", "status")
     search_fields = ("name",)
     list_filter = ("status",)
-
-
-@admin.register(ProductColor)
-class ProductColorAdmin(admin.ModelAdmin):
-    list_display = ("product", "color")
-    search_fields = ("product__name", "color")
-
-
-@admin.register(ProductDetail)
-class ProductDetailAdmin(admin.ModelAdmin):
-    list_display = ("product", "material")
-    search_fields = ("product__name", "material")
-
-
-@admin.register(ProductImage)
-class ProductImageAdmin(admin.ModelAdmin):
-    list_display = ("product", "image", "description")
-    search_fields = ("product__name",)
-
+    inlines = [
+        ProductThumbnailInline,
+        ProductDetailInline,
+        ProductImageInline,
+        ProductColorInline,
+    ]
 
 @admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
@@ -34,5 +42,7 @@ class CartAdmin(admin.ModelAdmin):
 
 @admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
-    list_display = ("cart", "product", "quantity", "selected_color")
+    list_display = ("cart", "product", "selected_color")
     search_fields = ("cart__user__username", "product__name")
+
+

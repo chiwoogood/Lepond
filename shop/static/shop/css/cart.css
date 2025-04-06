@@ -1,142 +1,131 @@
-.cart-container {
-    width: 100%;
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: #ffffff;
+.cart-wrapper {
+    max-width: 960px;
+    margin: 80px auto;
+    padding: 40px 30px;
 }
 
-.cart-container h2 {
+.cart-title {
     text-align: center;
-    margin-bottom: 20px;
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 50px;
     color: #222;
-    font-weight: bold;
 }
 
-
-.cart-item-grid {
-    display: grid;
-    gap: 20px;
-    width: 100%;
+.cart-list {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
 }
-
 
 .cart-item {
-    display: grid;
-    grid-template-columns: 150px 1fr;
-    gap: 20px;
-    border-bottom: 1px solid #ddd;
-    padding-bottom: 20px;
-    align-items: center;
-}
-
-.cart-item:last-child {
-    border-bottom: none;
-}
-
-
-.cart-item-image img {
-    width: 100%;
-    border-radius: 8px;
-}
-
-
-.cart-item-info h3 {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.cart-item-info p {
-    font-size: 16px;
-    color: #555;
-    margin: 5px 0;
-}
-
-.quantity-control {
     display: flex;
+    gap: 30px;
     align-items: center;
-    gap: 10px;
-    margin: 10px 0;
+    padding: 30px;
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
 }
 
-.quantity-control input {
-    width: 50px;
-    text-align: center;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 5px;
+.item-image img {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
+    background-color: #f0f0f0;
 }
 
-.quantity-control button {
-    padding: 5px 10px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.quantity-control button:hover {
-    background-color: #0056b3;
-}
-
-
-.remove-btn {
-    padding: 5px 10px;
-    background-color: #dc3545;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-    transition: background-color 0.3s ease;
-}
-
-.remove-btn:hover {
-    background-color: #c82333;
-}
-
-
-.cart-summary {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.cart-summary h3 {
+.item-info h3 {
     font-size: 20px;
     color: #333;
     margin-bottom: 10px;
 }
 
-.checkout-btn {
-    padding: 10px 20px;
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+.item-info p {
+    margin: 4px 0;
+    font-size: 15px;
+    color: #666;
 }
 
-.checkout-btn:hover {
-    background-color: #218838;
+.btn-remove {
+    margin-top: 14px;
+    padding: 8px 16px;
+    background-color: #e0e0e0;
+    color: #333;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-remove:hover {
+    background-color: #d0d0d0;
+}
+
+.cart-bottom {
+    margin-top: 60px;
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-end;
+}
+
+.btn-clear {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.btn-clear:hover {
+    color: #444;
+}
+
+.cart-summary {
+    font-size: 18px;
+    color: #222;
+}
+
+.cart-summary strong {
+    font-size: 20px;
+    margin-left: 6px;
+}
+
+.btn-checkout {
+    padding: 12px 28px;
+    font-size: 16px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-checkout:hover {
+    background-color: #111;
+}
+
+.empty-message {
+    text-align: center;
+    font-size: 17px;
+    color: #777;
+    margin-top: 60px;
 }
 
 
 @media (max-width: 768px) {
     .cart-item {
-        grid-template-columns: 1fr;
+        flex-direction: column;
         text-align: center;
     }
 
-    .cart-item-image {
-        margin-bottom: 15px;
-    }
-
-    .quantity-control {
-        justify-content: center;
+    .cart-bottom {
+        align-items: center;
     }
 }

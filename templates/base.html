@@ -31,8 +31,15 @@
                         <a href="{% url 'shop:items' %}">&nbsp;SHOP&nbsp;</a>
                         <div class="dropdown-content">
                             <table>
-                                <tr><td><a href="#">New in</a></td></tr>
-                                <tr><td><a href="#">25 F/W</a></td></tr>
+                                {% for category in categories %}
+                                    <tr>
+                                        <td>
+                                            <a href="{% url 'shop:items' %}?category={{ category.id }}">
+                                                {{ category.name }}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
                             </table>
                         </div>
                     </li>
@@ -59,7 +66,9 @@
                         {% endif %}
                     </li>
                     <li><a href="{% url 'users:mypage' %}">MYPAGE</a></li>
-                    <li><a href="{% url 'shop:cart' %}">CART</a></li>
+                    <li>
+                        <a href="{% url 'shop:cart' %}">CART ({{ cart_item_count|default:0 }})</a>
+                    </li>
                 </ul>
             </nav>
         </div>

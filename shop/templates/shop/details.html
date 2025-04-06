@@ -19,17 +19,24 @@
     <div class="product-details">
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="https://dummyimage.com/900x700/ccc/000&text=Product+1"></div>
-                <div class="swiper-slide"><img src="https://dummyimage.com/900x700/ccc/000&text=Product+2"></div>
-                <div class="swiper-slide"><img src="https://dummyimage.com/900x700/ccc/000&text=Product+3"></div>
-                <div class="swiper-slide"><img src="https://dummyimage.com/900x700/ccc/000&text=Product+4"></div>
+                {% if product.thumbnails.all %}
+                    {% for thumbnail in product.thumbnails.all %}
+                        <div class="swiper-slide">
+                            <img src="{{ thumbnail.image.url }}" alt="썸네일 이미지">
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="swiper-slide">
+                        <img src="https://dummyimage.com/900x700/ccc/000&text=No+Image" alt="기본 이미지">
+                    </div>
+                {% endif %}
             </div>
             <div class="swiper-button-next"></div>
             <div class="swiper-button-prev"></div>
         </div>
         <div class="product-info">
-            <h2 class="fw-bold">상품명</h2>
-            <p class="fw-bold">₩99,000</p>
+            <h2 class="fw-bold">{{ product.name }}</h2>
+            <p class="fw-bold">{{ product.price }}</p>
             <label for="size" class="form-label">옵션 선택:</label>
             <select id="size" class="form-select mb-3">
                 <option>Small</option>
@@ -42,16 +49,26 @@
     </div>
 
     <div class="product-description">
-        <h3 class="fs-5 fw-bold">제품 설명</h3>
-        <p>이 제품은 최고급 소재로 제작되어 내구성이 뛰어나며 스타일과 편안함을 모두 제공합니다.</p>
+        {% comment %} <h3 class="fs-5 fw-bold">제품 설명</h3> {% endcomment %}
+        <p>{{ product.details.instruction }}</p>
     </div>
 
     <div class="wearing-shots-container">
         <div class="wearing-shots">
-            <img src="https://dummyimage.com/900x600/aaa/000&text=Wear+1">
-            <img src="https://dummyimage.com/900x600/aaa/000&text=Wear+2">
-            <img src="https://dummyimage.com/900x600/aaa/000&text=Wear+3">
-            <img src="https://dummyimage.com/900x600/aaa/000&text=Wear+4">
+            {% for thumb in product.thumbnails.all %}
+                <img src="{{ thumb.image.url }}" alt="{{ product.name }} 썸네일">
+            {% empty %}
+                <p>썸네일 이미지가 없습니다.</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="wearing-shots-container">
+        <div class="wearing-shots">
+            {% for image in product.images.all %}
+                <img src="{{ image.image.url }}" alt="{{ product.name }} 썸네일">
+            {% empty %}
+                <p>착용 이미지가 없습니다.</p>
+            {% endfor %}
         </div>
     </div>
 </div>

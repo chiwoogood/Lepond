@@ -2,67 +2,53 @@
 {% load static %}
 
 {% block head %}
-<link rel='stylesheet' href="{% static 'shop/css/cart.css' %}">
+<link rel="stylesheet" href="{% static 'shop/css/cart.css' %}">
 {% endblock head %}
 
 {% block content %}
-<div class="cart-container">
-    <div class="cart-item-grid">
+<div class="cart-wrapper">
+    {% if items %}
+    <div class="cart-list">
+        {% for item in items %}
         <div class="cart-item">
-            <div class="cart-item-image">
-                <img src="https://via.placeholder.com/150" alt="Product Image">
+            <div class="item-image">
+                {% if item.product.thumbnail %}
+                    <img src="{{ item.product.thumbnail.url }}" alt="{{ item.product.name }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/150" alt="No Image">
+                {% endif %}
             </div>
-            <div class="cart-item-info">
-                <h3>Product Name</h3>
-                <p>Size: M</p>
-                <p>Price: $50</p>
-                <div class="quantity-control">
-                    <button class="decrease-btn">-</button>
-                    <input type="number" value="1" min="1">
-                    <button class="increase-btn">+</button>
-                </div>
-                <button class="remove-btn">Remove</button>
+            <div class="item-info">
+                <h3>{{ item.product.name }}</h3>
+                {% if item.selected_color %}
+                <p class="text-muted">색상: {{ item.selected_color.color }}</p>
+                {% endif %}
+                <p class="text-muted">가격: {{ item.product.price }}원</p>
+                <form method="POST" action="{% url 'shop:remove_cart_item' item.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-remove">삭제</button>
+                </form>
             </div>
         </div>
-        <div class="cart-item">
-            <div class="cart-item-image">
-                <img src="https://via.placeholder.com/150" alt="Product Image">
-            </div>
-            <div class="cart-item-info">
-                <h3>Another Product</h3>
-                <p>Size: L</p>
-                <p>Price: $30</p>
-                <div class="quantity-control">
-                    <button class="decrease-btn">-</button>
-                    <input type="number" value="1" min="1">
-                    <button class="increase-btn">+</button>
-                </div>
-                <button class="remove-btn">Remove</button>
-            </div>
-        </div>
-        <div class="cart-item">
-            <div class="cart-item-image">
-                <img src="https://via.placeholder.com/150" alt="Product Image">
-            </div>
-            <div class="cart-item-info">
-                <h3>Product Name</h3>
-                <p>Size: M</p>
-                <p>Price: $50</p>
-                <div class="quantity-control">
-                    <button class="decrease-btn">-</button>
-                    <input type="number" value="1" min="1">
-                    <button class="increase-btn">+</button>
-                </div>
-                <button class="remove-btn">Remove</button>
-            </div>
-        </div>
+        {% endfor %}
     </div>
-    <div class="cart-summary">
-        <h3>Total: $80</h3>
-        <button class="checkout-btn">Checkout</button>
+
+    <div class="cart-bottom">
+        <form method="POST" action="{% url 'shop:clear_cart' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn-clear">전체 삭제</button>
+        </form>
+
+        <div class="cart-summary">
+            <span>총합:</span>
+            <strong>{{ total_price }}원</strong>
+        </div>
+
+        <button class="btn-checkout">결제하기</button>
     </div>
+
+    {% else %}
+    <p class="empty-message">장바구니에 담긴 상품이 없습니다.</p>
+    {% endif %}
 </div>
 {% endblock content %}
-
-{% block script %}
-{% endblock script %}
