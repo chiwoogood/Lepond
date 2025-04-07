@@ -11,6 +11,19 @@
     .swiper-button-next, .swiper-button-prev {
         color: white !important;
     }
+    .btn-white {
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #ddd;
+    }
+    
+    .btn-gray {
+        background-color: #888888;
+        color: #ffffff;
+        border: none;
+        cursor: not-allowed;
+        opacity: 0.9;
+    }
 </style>
 {% endblock head %}
 
@@ -37,14 +50,37 @@
         <div class="product-info">
             <h2 class="fw-bold">{{ product.name }}</h2>
             <p class="fw-bold">{{ product.price }}</p>
-            <label for="size" class="form-label">옵션 선택:</label>
-            <select id="size" class="form-select mb-3">
-                <option>Small</option>
-                <option>Medium</option>
-                <option>Large</option>
+            <label for="color" class="form-label">Color</label>
+            <select id="color" class="form-select mb-3">
+                {% for color in product.colors.all %}
+                    <option>{{ color.color }}</option>
+                {% endfor %}
             </select>
-            <button class="btn btn-dark w-100 mb-2">장바구니 담기</button>
-            <button class="btn btn-danger w-100">바로 구매</button>
+            <label for="size" class="form-label">Size</label>
+            <select id="size" class="form-select mb-3">
+                {% for size in product.sizes.all %}
+                <option>{{ size.size }}</option>
+                {% endfor %}
+            </select>
+
+            <form method="POST" action="{% url 'shop:add_cart' product.id %}">
+                {% csrf_token %}
+                <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                <button type="submit" class="btn btn-white w-100 mb-2">Cart 🛒</button>
+            </form>
+            
+            {% if product.status == 'in_stock' %}
+                <button class="btn btn-white w-100">Buy</button>
+            {% elif product.status == 'out_of_stock' %}
+                <button class="btn btn-gray w-100" disabled>Sold Out</button>
+            {% else %}
+                <button class="btn btn-gray w-100" disabled>Pre-order</button>
+            {% endif %}
+            <label for="shipping" class="form-label" >Shipping</label>
+            <textarea stlye="height:100%;" style="resize: none;" id="shipping" class="form-control mb-3" rows="4" placeholder="※ 제주도 및 도서산간 지역의 경우, 기본 배송비 외에 추가 배송비가 발생할 수 있습니다.
+추가 배송비는 지역 및 상품에 따라 상이하며, 결제 후 별도로 안내드릴 수 있습니다."></textarea>
+
+                
         </div>
     </div>
 

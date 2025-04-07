@@ -23,6 +23,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="가격")
     mileage = models.DecimalField(max_digits=5, decimal_places=2, default=10.0, verbose_name="마일리지 (%)")
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='in_stock', verbose_name="제품 상태")
+    is_active = models.BooleanField(default=True)
 
     def calculate_mileage_amount(self):
         return self.price * (self.mileage / 100)
@@ -49,7 +50,6 @@ class ProductDetail(models.Model):
     def __str__(self):
         return f"{self.product.name} - 상세 정보"
 
-
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images", verbose_name="제품")
     image = models.ImageField(upload_to="product_images/", verbose_name="제품 이미지")
@@ -65,6 +65,13 @@ class ProductColor(models.Model):
     def __str__(self):
         return f"{self.product.name} - {self.color}"
 
+class ProductSize(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="sizes", verbose_name="제품")
+    size = models.CharField(max_length=100, verbose_name="사이즈")
+
+    def __str__(self):
+        return f"{self.product.name} - {self.size}"
+    
 
 class Cart(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="cart", verbose_name="사용자", null=True, blank=True)

@@ -10,11 +10,11 @@ from django.contrib import messages
 def items(request):
     category_id = request.GET.get('category')
 
-    products_list = Product.objects.all()
+    products_list = Product.objects.filter(is_active=True)  # ← 판매 중인 상품만 가져옴
     if category_id:
         products_list = products_list.filter(category_id=category_id)
 
-    paginator = Paginator(products_list, 8)  
+    paginator = Paginator(products_list, 6)  
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
 
@@ -38,6 +38,7 @@ def items(request):
     }
     return render(request, 'shop/items.html', context)
 
+
 def details(request, pk):
     product = get_object_or_404(Product, pk=pk)
     context = {
@@ -57,7 +58,7 @@ def add_cart(request, pk):
         CartItem.objects.create(cart=cart, product=product)
         messages.success(request, '장바구니에 상품을 담았습니다.')
 
-    return redirect('shop:items')
+    return redirect(request.POST.get('next', 'shop:items'))
 
 @login_required
 def cart(request):

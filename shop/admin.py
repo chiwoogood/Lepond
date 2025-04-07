@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import ProductCategory, Product, ProductThumbnail, ProductDetail, ProductColor, ProductImage, Cart, CartItem
+from .models import ProductCategory, Product, ProductThumbnail, ProductDetail, ProductColor, ProductSize, ProductImage, Cart, CartItem
 
 @admin.register(ProductCategory)
 class ProductCategoryAdmin(admin.ModelAdmin):
@@ -22,6 +22,10 @@ class ProductColorInline(admin.StackedInline):
     model = ProductColor
     extra = 1
 
+class ProductSizeInline(admin.StackedInline):
+    model = ProductSize
+    extra = 1
+
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("name", "price", "mileage", "status")
@@ -32,6 +36,7 @@ class ProductAdmin(admin.ModelAdmin):
         ProductDetailInline,
         ProductImageInline,
         ProductColorInline,
+        ProductSizeInline,
     ]
 
 @admin.register(Cart)
