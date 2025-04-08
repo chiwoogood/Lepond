@@ -17,6 +17,7 @@ class Product(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="가격")
     mileage = models.DecimalField(max_digits=5, decimal_places=2, default=10.0, verbose_name="마일리지 (%)")
     is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
     def calculate_mileage_amount(self):
         return self.price * (self.mileage / 100)

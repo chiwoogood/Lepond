@@ -9,7 +9,7 @@ from django.contrib import messages
 
 def items(request):
     categories = ProductCategory.objects.all()
-    products_list = Product.objects.filter(is_active=True)
+    products_list = Product.objects.filter(is_active=True).order_by('-created_at')
     paginator = Paginator(products_list, 6)
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
@@ -36,12 +36,12 @@ def items(request):
 @require_GET
 def get_filtered_items(request):
     category_id = request.GET.get('category')
-    products_list = Product.objects.filter(is_active=True)
+    products_list = Product.objects.filter(is_active=True).order_by('-created_at')
 
     if category_id:
         try:
             category_id = int(category_id)
-            products_list = products_list.filter(category_id=category_id)
+            products_list = products_list.filter(category_id=category_id).order_by('-created_at')
         except ValueError:
             pass
 
