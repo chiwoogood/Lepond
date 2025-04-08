@@ -12,21 +12,24 @@ class ProductCategory(models.Model):
         return self.name
 
 class Product(models.Model):
-    STATUS_CHOICES = [
-        ('in_stock', '재고 있음'),
-        ('out_of_stock', '품절'),
-        ('pre_order', '예약 주문')
-    ]
-
     category = models.ForeignKey(ProductCategory, related_name='products', on_delete=models.SET_NULL, null=True, verbose_name="카테고리")
     name = models.CharField(max_length=255, verbose_name="제품명")
     price = models.DecimalField(max_digits=10, decimal_places=2, verbose_name="가격")
     mileage = models.DecimalField(max_digits=5, decimal_places=2, default=10.0, verbose_name="마일리지 (%)")
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='in_stock', verbose_name="제품 상태")
     is_active = models.BooleanField(default=True)
 
     def calculate_mileage_amount(self):
         return self.price * (self.mileage / 100)
+
+    @property
+    def status(self):
+        total_stock = sum(q.stock for q in self.quantities.all())
+        if total_stock > 0:
+            return 'in_stock'
+        elif self.quantities.exists():
+            return 'out_of_stock'
+        else:
+            return 'pre_order'
 
     def __str__(self):
         return self.name
@@ -37,7 +40,6 @@ class ProductThumbnail(models.Model):
 
     def __str__(self):
         return f"{self.product.name} - 썸네일"
-
 
 
 class ProductDetail(models.Model):
@@ -63,15 +65,26 @@ class ProductColor(models.Model):
     color = models.CharField(max_length=100, verbose_name="색깔")
 
     def __str__(self):
-        return f"{self.product.name} - {self.color}"
+        return f"{self.color}"
 
 class ProductSize(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="sizes", verbose_name="제품")
     size = models.CharField(max_length=100, verbose_name="사이즈")
 
     def __str__(self):
-        return f"{self.product.name} - {self.size}"
+        return f"{self.size}"
     
+class ProductQuantity(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="quantities", verbose_name="제품")
+    color = models.ForeignKey(ProductColor, on_delete=models.CASCADE, verbose_name="색상")
+    size = models.ForeignKey(ProductSize, on_delete=models.CASCADE, verbose_name="사이즈")
+    stock = models.PositiveIntegerField(default=0, verbose_name="재고 수량")
+
+    class Meta:
+        unique_together = ('product', 'color', 'size')
+
+    def __str__(self):
+        return f"{self.product.name} - {self.color.color} / {self.size.size} : {self.stock}개"
 
 class Cart(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="cart", verbose_name="사용자", null=True, blank=True)

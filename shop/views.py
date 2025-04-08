@@ -1,50 +1,77 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.http import require_POST
+from django.views.decorators.http import require_POST, require_GET
 from django.http import JsonResponse
 from .models import Product, Cart, CartItem, ProductCategory
 from django.contrib import messages
 
 
 def items(request):
-    category_id = request.GET.get('category')
-
-    products_list = Product.objects.filter(is_active=True)  # ← 판매 중인 상품만 가져옴
-    if category_id:
-        products_list = products_list.filter(category_id=category_id)
-
-    paginator = Paginator(products_list, 6)  
+    categories = ProductCategory.objects.all()
+    products_list = Product.objects.filter(is_active=True)
+    paginator = Paginator(products_list, 6)
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
 
-    categories = ProductCategory.objects.all()
-
-    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
-        product_data = [
-            {
-                "id": product.id,
-                "name": product.name,
-                "price": str(product.price),
-                "status": product.get_status_display(),
-                "thumbnail": product.thumbnails.first().image.url if product.thumbnails.exists() else ""
-            } for product in products
-        ]
-        return JsonResponse({'products': product_data})
+    quantities = {}
+    for product in products:
+        product_quantities = []
+        for q in product.quantities.select_related('color', 'size'):
+            if q.color and q.size:
+                product_quantities.append({
+                    'color': str(q.color.id),
+                    'size': str(q.size.id),
+                    'stock': q.stock
+                })
+        quantities[str(product.id)] = product_quantities
 
     context = {
         'products': products,
         'categories': categories,
+        'quantities': quantities,
     }
     return render(request, 'shop/items.html', context)
 
+@require_GET
+def get_filtered_items(request):
+    category_id = request.GET.get('category')
+    products_list = Product.objects.filter(is_active=True)
+
+    if category_id:
+        try:
+            category_id = int(category_id)
+            products_list = products_list.filter(category_id=category_id)
+        except ValueError:
+            pass
+
+    paginator = Paginator(products_list, 6)
+    page_number = request.GET.get('page')
+    products = paginator.get_page(page_number)
+
+    product_ids = [product.id for product in products]
+    return JsonResponse({'product_ids': product_ids})
 
 def details(request, pk):
     product = get_object_or_404(Product, pk=pk)
+
+    quantities_qs = product.quantities.select_related('color', 'size')
+
+    quantities = [
+        {
+            'color': str(q.color.id),
+            'size': str(q.size.id),
+            'stock': q.stock
+        }
+        for q in quantities_qs
+    ]
+
     context = {
-        'product' : product
+        'product': product,
+        'quantities': quantities,
     }
-    return render(request, 'shop/details.html',context)
+    return render(request, 'shop/details.html', context)
+    
 
 @login_required
 def add_cart(request, pk):

@@ -3,92 +3,7 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'shop/css/items.css' %}">
-<style>
-    .list-container {
-        display: grid;
-        gap: 20px;
-        max-width: 1200px;
-        margin: auto;
-    }
-
-    .list-container .row {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-    }
-
-    @media (max-width: 1024px) {
-        .list-container .row {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    @media (max-width: 768px) {
-        .list-container .row {
-            grid-template-columns: repeat(1, 1fr);
-        }
-    }
-
-    .category {
-        margin-top: 80px;
-        display: flex;
-        justify-content: center;
-        gap: 30px;
-    }
-
-    @media (max-width: 1024px) {
-        .category {
-            margin-top: 70px;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .category {
-            margin-top: 60px;
-        }
-    }
-
-    .category-item {
-        font-size: 16px;
-        font-weight: 300;
-        color: gray;
-        cursor: pointer;
-        transition: all 0.3s;
-    }
-
-    .category-item.active {
-        font-weight: 700;
-        color: black;
-    }
-
-    .pagination {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
-        margin-top: 100px;
-    }
-
-    .page-btn {
-        color: black;
-        border: none;
-        padding: 10px 15px;
-        border-radius: 5px;
-        cursor: pointer;
-        font-size: 14px;
-        background-color: white;
-        transition: background 0.3s ease;
-    }
-
-    .page-btn:hover {
-        text-decoration: underline;
-    }
-
-    .page-btn.prev,
-    .page-btn.next {
-        font-weight: bold;
-    }
-</style>
+<meta name="csrf-token" content="{{ csrf_token }}">
 {% endblock head %}
 
 {% block content %}
@@ -104,33 +19,28 @@
         </div>
 
         <div class="row">
-            {% if products %}
-                {% for product in products %}
-                    <div class="col">
-                        <div class="swiper-slide">
-                            <a href="{% url 'shop:details' product.id %}">
-                                <img src="{% if product.thumbnails.first %}{{ product.thumbnails.first.image.url }}{% else %}https://dummyimage.com/900x700/ccc/000&text=No+Image{% endif %}"
-        class="card-img-top" alt="Thumbnail Image">
-                            </a>
-                            <a href="{% url 'shop:details' product.id %}">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ product.name }}</h5>
-                                    <p class="card-price">{{ product.price }}</p>
-                                    <p class="card-status">{{ product.status }}</p>
-                                </div>
-                            </a>
-                    
-                            <form method="POST" action="{% url 'shop:add_cart' product.id %}">
-                                {% csrf_token %}
-                                <input type="hidden" name="next" value="{{ request.get_full_path }}">
-                                <button type="submit" class="add-to-cart-btn">장바구니 담기 🛒</button>
-                            </form>
-                        </div>
+            {% for product in products %}
+                <div class="col product-item" data-product-id="{{ product.id }}">
+                    <div class="swiper-slide">
+                        <a href="{% url 'shop:details' product.id %}">
+                            <img src="{% if product.thumbnails.first %}{{ product.thumbnails.first.image.url }}{% else %}https://dummyimage.com/900x700/ccc/000&text=No+Image{% endif %}"
+                                 class="card-img-top" alt="Thumbnail Image">
+                        </a>
+                        <a href="{% url 'shop:details' product.id %}">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                                <p class="card-price">{{ product.price }}</p>
+                                <p class="card-status">{{ product.status }}</p>
+                            </div>
+                        </a>
+                        <form method="POST" action="{% url 'shop:add_cart' product.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                            <button type="submit" class="add-to-cart-btn">장바구니 담기 🛒</button>
+                        </form>
                     </div>
-                {% endfor %}
-            {% else %}
-                <p class="no-products">현재 등록된 상품이 없습니다.</p>
-            {% endif %}
+                </div>
+            {% endfor %}
         </div>
     </div>
 
@@ -146,8 +56,10 @@
 </div>
 
 <div class="scroll-to-top" onclick="scrollToTop()">&#8679;</div>
+{{ quantities|json_script:"productQuantities" }}
 {% endblock content %}
 
 {% block script %}
 <script src="{% static 'shop/js/items.js' %}"></script>
+
 {% endblock script %}
