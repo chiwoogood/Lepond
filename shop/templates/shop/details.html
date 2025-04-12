@@ -80,11 +80,6 @@
         추가 배송비는 지역 및 상품에 따라 상이하며, 결제 후 별도로 안내드릴 수 있습니다."></textarea>
         </div>
     </div>
-
-    <div class="product-description">
-        <p>{{ product.details.instruction }}</p>
-    </div>
-
     <div class="wearing-shots-container">
         <div class="wearing-shots">
             {% for thumb in product.thumbnails.all %}
@@ -98,6 +93,7 @@
         <div class="wearing-shots">
             {% for image in product.images.all %}
                 <img src="{{ image.image.url }}" alt="{{ product.name }} 썸네일">
+                <p>{{ image.description }}</p>
             {% empty %}
                 <p>착용 이미지가 없습니다.</p>
             {% endfor %}

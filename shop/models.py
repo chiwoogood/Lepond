@@ -1,5 +1,8 @@
 from django.db import models
 from users.models import CustomUser
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
 
 class ProductCategory(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="카테고리 이름")
@@ -39,6 +42,22 @@ class ProductThumbnail(models.Model):
     product = models.ForeignKey(Product, related_name='thumbnails', on_delete=models.CASCADE)
     image = models.ImageField(upload_to="product_thumbnails/", verbose_name="썸네일 이미지")
 
+    def save(self, *args, **kwargs):
+        if self.image:
+            img = Image.open(self.image)
+
+            if img.mode in ("RGBA", "P"):
+                img = img.convert("RGB")
+
+            img.thumbnail((480, 720))
+
+            buffer = BytesIO()
+            img.save(fp=buffer, format='JPEG', quality=92) 
+            file_content = ContentFile(buffer.getvalue())
+            self.image.save(self.image.name, file_content, save=False)
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f"{self.product.name} - 썸네일"
 
@@ -53,10 +72,28 @@ class ProductDetail(models.Model):
     def __str__(self):
         return f"{self.product.name} - 상세 정보"
 
+
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="images", verbose_name="제품")
     image = models.ImageField(upload_to="product_images/", verbose_name="제품 이미지")
     description = models.CharField(max_length=255, blank=True, verbose_name="이미지 설명")
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            img = Image.open(self.image)
+
+            if img.mode in ("RGBA", "P"):
+                img = img.convert("RGB")
+
+            img.thumbnail((800, 800))
+ 
+            buffer = BytesIO()
+            img.save(fp=buffer, format='JPEG', quality=92)  
+            file_content = ContentFile(buffer.getvalue())
+
+            self.image.save(self.image.name, file_content, save=False)
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"{self.product.name} - 이미지"
