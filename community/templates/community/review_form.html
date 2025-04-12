@@ -7,35 +7,36 @@
 
 {% block content %}
 <div class="qna-container">
-    <h2 class="qna-title">QnA 작성</h2>
-    <form method="post" action="" class="qna-form">
+    <h2 class="qna-title">Review</h2>
+    <form method="post" action="" class="qna-form" enctype="multipart/form-data">
         {% csrf_token %}
         
-        <label for="category">카테고리</label>
-        <select name="category" id="category" class="qna-input">
-            <!-- {% for key, value in QnaCategory.choices %}
-                <option value="{{ key }}">{{ value }}</option>
-            {% endfor %} -->
-        </select>
-
         <label for="product">관련 제품</label>
-        <select name="product" id="product" class="qna-input">
-            <!-- {% for product in products %}
-                <option value="{{ product.id }}">{{ product.name }}</option>
-            {% endfor %} -->
+        <select name="product" id="product" class="qna-input" required>
+            <option value="" disabled {% if not product_id %}selected{% endif %}>제품을 선택하세요</option>
+            {% for product in products %}
+                <option value="{{ product.id }}" {% if product_id == product.id|stringformat:"s" %}selected{% endif %}>{{ product.name }}</option>
+            {% endfor %}
         </select>
 
         <label for="title">제목</label>
-        <input type="text" name="title" id="title" class="qna-input" placeholder="제목을 입력하세요" required>
+        <input type="text" name="title" id="title" class="qna-input" placeholder="제목을 입력하세요"
+               value="{{ title|default:'' }}" required>
         
         <label for="content">내용</label>
-        <textarea name="content" id="content" class="qna-textarea" placeholder="질문 내용을 입력하세요" required></textarea>
+        <textarea name="content" id="content" class="qna-textarea" placeholder="리뷰 내용을 입력하세요" required>{{ content|default:'' }}</textarea>
         
+        <label for="rating">평점</label>
+        <input type="number" name="rating" id="rating" class="qna-input" min="1" max="5" value="{{ rating|default:'' }}" required>
+
+        <label for="images">이미지 업로드</label>
+        <input type="file" name="images" id="images" class="qna-input" multiple>
+
         <button type="submit" class="qna-submit">작성하기</button>
     </form>
 </div>
 {% endblock content %}
 
 {% block script %}
-    <script src="{% static 'community/js/qna_form.js' %}"></script>
+    <script src="{% static 'community/js/review_form.js' %}"></script>
 {% endblock script %}

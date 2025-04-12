@@ -6,7 +6,40 @@
 {% endblock head %}
 
 {% block content %}
+<div class="address-container">
+    <h2>배송지 관리</h2>
 
+    {% for address in addresses %}
+    <div class="address-card {% if address.is_default %}default{% endif %}">
+        <div class="address-info">
+            <p><strong>{{ address.roadAddress }}</strong></p>
+            <p>{{ address.detailAddress }}{% if address.extraAddress %} ({{ address.extraAddress }}){% endif %}</p>
+            <p>우편번호: {{ address.postcode }}</p>
+            {% if address.is_default %}
+                <span class="badge">기본 배송지</span>
+            {% else %}
+                <form method="post" action="{% url 'users:set_default_address' address.id %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-sm btn-outline-primary">기본 배송지로 설정</button>
+                </form>
+            {% endif %}
+        </div>
+        <div class="address-actions">
+            <a href="{% url 'users:edit_address' address.id %}" class="btn btn-sm btn-outline-secondary">수정</a>
+            <form method="post" action="{% url 'users:delete_address' address.id %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('정말 삭제하시겠습니까?');">삭제</button>
+            </form>
+        </div>
+    </div>
+    {% empty %}
+    <p>등록된 배송지가 없습니다.</p>
+    {% endfor %}
+
+    <div class="mt-4">
+        <a href="{% url 'users:add_address' %}" class="btn btn-primary">+ 새 배송지 추가</a>
+    </div>
+</div>
 {% endblock content %}
 
 {% block script %}

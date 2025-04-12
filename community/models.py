@@ -1,6 +1,10 @@
 from django.db import models
 from users.models import CustomUser
 from shop.models import Product
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
+
 
 class QnaCategory(models.TextChoices):
     SHIPPING = 'shipping', '배송 문의'
@@ -31,7 +35,7 @@ class QnaInfo(models.Model):
     class Meta:
         verbose_name = "Q&A 공지사항"
         verbose_name_plural = "Q&A 공지사항 목록"
-        ordering = ['-created_at']  # 최신 공지 먼저 표시
+        ordering = ['-created_at'] 
 
     def __str__(self):
         return self.title
@@ -45,6 +49,44 @@ class Notice(models.Model):
 
 
 
-# class Review(models.Model):
-#     content = models.TextField(verbose_name="리뷰 내용", blank=True, Null=True)
-#     created_at = models.DateTimeField(auto_now_add=True, verbose_name="작성일")
+class Review(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="사용자")
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="제품")
+    title = models.CharField(max_length=255, verbose_name="리뷰 제목")
+    content = models.TextField(verbose_name="리뷰 내용", blank=True, null=True)
+    rating = models.PositiveIntegerField(verbose_name="평점") 
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="작성일")
+
+    class Meta:
+        verbose_name = "리뷰"
+        verbose_name_plural = "리뷰 목록"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"[{self.product.name}] {self.title} - {self.user.username}"
+    
+
+class ReviewImage(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name="images", verbose_name="리뷰")
+    image = models.ImageField(upload_to="review_images/", verbose_name="리뷰 이미지")
+    description = models.CharField(max_length=255, blank=True, verbose_name="이미지 설명")
+
+    def save(self, *args, **kwargs):
+        if self.image:
+            img = Image.open(self.image)
+
+            if img.mode in ("RGBA", "P"):
+                img = img.convert("RGB")
+
+            img.thumbnail((800, 800))
+
+            buffer = BytesIO()
+            img.save(fp=buffer, format='JPEG', quality=92)
+            file_content = ContentFile(buffer.getvalue())
+
+            self.image.save(self.image.name, file_content, save=False)
+
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"리뷰 ID {self.review.id} - 이미지"

@@ -3,7 +3,6 @@
 
 {% block head %}
 <link rel="stylesheet" href="{% static 'community/css/review.css' %}">
-
 {% endblock head %}
 
 {% block content %}
@@ -13,49 +12,75 @@
         <a href="{% url 'community:notice' %}">Notice</a>
         <a href="{% url 'community:QnA' %}">Q&A</a>
     </div>
+
     <!-- Table -->
     <table class="board-table">
         <thead>
             <tr>
                 <th>#</th>
-                <th>Notice</th>
+                <th>상품</th>
+                <th>리뷰 내용</th>
+                <th>작성일</th>
+                <th>Writer</th>
             </tr>
         </thead>
         <tbody>
+            {% for review in page_obj %}
             <tr>
-                <td>1</td>
-                <td>Welcome to the Board</td>
+                <td>{{ forloop.counter }}</td>
+                <td>
+                    {% if review.product.thumbnails.first %}
+                        <a href="{% url 'community:review_detail' review.product.id %}">
+                            <img src="{{ review.product.thumbnails.first.image.url }}" alt="썸네일" style="width:80px; height:auto; margin-top:5px;">
+                        </a>
+                    {% endif %}
+                </td>
+                <td>
+                    <a href="{% url 'community:review_detail' review.product.id %}" style="text-decoration: none; color: inherit;">
+                        {{ review.content|truncatechars:50 }}
+                    </a>
+                </td>
+                <td>{{ review.created_at|date:"Y-m-d" }}</td>
+                <td>{{ review.user.username|slice:":1" }}**</td>
+                {% if request.user == review.user %}
+                <td>
+                    <form method="POST" action="{% url 'community:review_delete' review.id %}" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')" class="btn btn-sm btn-danger">삭제</button>
+                    </form>
+                </td>
+                {% else %}
+                <td></td>
+                {% endif %}
             </tr>
+            {% empty %}
             <tr>
-                <td>2</td>
-                <td>Second Post</td>
+                <td colspan="6">작성된 리뷰가 없습니다.</td>
             </tr>
-            <tr>
-                <td>3</td>
-                <td>Another Update</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Another Update</td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td>Another Update</td>
-            </tr>
-
+            {% endfor %}
         </tbody>
     </table>
+
     <a href="{% url 'community:review_form' %}">글쓰기</a>
 
+    <!-- Pagination -->
     <div class="pagination">
-        <button class="page-btn prev">prev</button>
-        <button class="page-btn">1</button>
-        <button class="page-btn">2</button>
-        <button class="page-btn">3</button>
-        <button class="page-btn next">Next</button>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}" class="page-btn prev">Prev</a>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+                <span class="page-btn active">{{ num }}</span>
+            {% else %}
+                <a href="?page={{ num }}" class="page-btn">{{ num }}</a>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}" class="page-btn next">Next</a>
+        {% endif %}
     </div>
-    
-    
 </div>
 {% endblock content %}
 

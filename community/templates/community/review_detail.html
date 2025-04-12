@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'community/css/review_detail.css' %}">
+{% endblock head %}
+
+{% block content %}
+<div class="review-detail-container">
+    <h2 class="review-title">"{{ product.name }}"에 대한 사용자 리뷰</h2>
+
+    {% for review in reviews %}
+        <div class="review-block">
+            <div class="review-header">
+                <strong class="review-user">{{ review.user.username|slice:":1" }}**</strong>
+                <span class="review-rating">★ {{ review.rating }}/5</span>
+                <span class="review-date">{{ review.created_at|date:"Y-m-d" }}</span>
+            </div>
+
+            <div class="review-title-content">
+                <h3>{{ review.title }}</h3>
+                <p>{{ review.content }}</p>
+            </div>
+
+            {% if review.images.all %}
+            <div class="review-images">
+                {% for img in review.images.all %}
+                    <img src="{{ img.image.url }}" alt="리뷰 이미지" class="review-img">
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+    {% empty %}
+        <p class="no-review">등록된 리뷰가 없습니다.</p>
+    {% endfor %}
+</div>
+{% endblock content %}
+
+{% block script %}
+<script src="{% static 'community/js/review_detail.js' %}"></script>
+{% endblock script %}

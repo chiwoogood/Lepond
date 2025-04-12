@@ -1,0 +1,25 @@
+{% for review in reviews %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ review.title }}</h5>
+      <p class="card-text">{{ review.content|linebreaks }}</p>
+      <p>평점: {{ review.rating }}점</p>
+      <p class="text-muted">작성자: {{ review.user.username }} / {{ review.created_at|date:"Y-m-d H:i" }}</p>
+      
+      {% if review.images.all %}
+        <div class="mt-3 d-flex flex-wrap gap-3">
+          {% for image in review.images.all %}
+            <div style="width: 150px;">
+              <img src="{{ image.image.url }}" class="img-fluid rounded" alt="리뷰 이미지">
+              {% if image.description %}
+                <p class="small text-muted">{{ image.description }}</p>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% empty %}
+  <p class="text-muted">등록된 리뷰가 없습니다.</p>
+{% endfor %}

@@ -11,8 +11,10 @@ urlpatterns = [
     path('QnA/form/', views.QnA_form, name='QnA_form'),
     path('QnA/form/<int:pk>/', views.QnA_detail, name='QnA_info'),
 
-
-
     path('review/', views.review, name='review'),
     path('review/form/', views.review_form, name='review_form'),
+    path('review/<int:pk>/', views.review_detail, name='review_detail'),
+    path('review_list/<int:product_id>/', views.review_list, name='review_list'),
+    path('review/delete/<int:pk>/', views.review_delete, name='review_delete'),
+
 ]

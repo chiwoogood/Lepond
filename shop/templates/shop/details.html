@@ -1,5 +1,6 @@
 {% extends 'product.html' %}
 {% load static %}
+
 {% block head %}
 <link rel="stylesheet" href="{% static 'shop/css/details.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
@@ -16,7 +17,6 @@
         color: #000000;
         border: 1px solid #ddd;
     }
-    
     .btn-gray {
         background-color: #888888;
         color: #ffffff;
@@ -50,7 +50,7 @@
         <div class="product-info">
             <h2 class="fw-bold">{{ product.name }}</h2>
             <p class="fw-bold">{{ product.price }} 원</p>
-        
+
             <label for="color" class="form-label">Color</label>
             <select id="color" class="form-select mb-3">
                 <option value="">색상 선택</option>
@@ -58,7 +58,7 @@
                     <option value="{{ color.id }}">{{ color.color }}</option>
                 {% endfor %}
             </select>
-        
+
             <label for="size" class="form-label">Size</label>
             <select id="size" class="form-select mb-3">
                 <option value="">사이즈 선택</option>
@@ -66,20 +66,19 @@
                     <option value="{{ size.id }}">{{ size.size }}</option>
                 {% endfor %}
             </select>
-        
+
             <form method="POST" action="{% url 'shop:add_cart' product.id %}">
                 {% csrf_token %}
                 <input type="hidden" name="next" value="{{ request.get_full_path }}">
                 <input type="hidden" name="color_id" id="color_id">
                 <input type="hidden" name="size_id" id="size_id">
                 <button id="cartBtn" type="submit" class="btn btn-white w-100 mb-2" disabled>Cart 🛒</button>
-            </form> 
-            <button id="buyBtn" class="btn btn-white w-100" disabled>Buy</button> 
-            <label for="shipping" class="form-label">Shipping</label>
-            <textarea style="resize: none;" id="shipping" class="form-control mb-3" rows="4" placeholder="※ 제주도 및 도서산간 지역의 경우, 기본 배송비 외에 추가 배송비가 발생할 수 있습니다.
-        추가 배송비는 지역 및 상품에 따라 상이하며, 결제 후 별도로 안내드릴 수 있습니다."></textarea>
+            </form>
+            <button id="buyBtn" class="btn btn-white w-100" disabled>Buy</button>
+            <textarea style="resize: none;" class="form-control mb-3" rows="4" placeholder="※ 제주도 및 도서산간 지역의 경우, 기본 배송비 외에 추가 배송비가 발생할 수 있습니다. 추가 배송비는 지역 및 상품에 따라 상이하며, 결제 후 별도로 안내드릴 수 있습니다."></textarea>
         </div>
     </div>
+
     <div class="wearing-shots-container">
         <div class="wearing-shots">
             {% for thumb in product.thumbnails.all %}
@@ -89,22 +88,58 @@
             {% endfor %}
         </div>
     </div>
+
     <div class="wearing-shots-container">
         <div class="wearing-shots">
             {% for image in product.images.all %}
-                <img src="{{ image.image.url }}" alt="{{ product.name }} 썸네일">
+                <img src="{{ image.image.url }}" alt="{{ product.name }} 이미지">
                 <p>{{ image.description }}</p>
             {% empty %}
                 <p>착용 이미지가 없습니다.</p>
             {% endfor %}
         </div>
     </div>
+
+    <div class="container my-5 text-center">
+        <div class="d-flex justify-content-center gap-3">
+            <button id="loadAllReviews" class="btn btn-outline-dark px-4 py-2">
+                Review <span class="badge bg-dark">{{ review_count }}</span>
+            {% comment %} </button>
+            <a href="{% url 'shop:qna_list' product.id %}" class="btn btn-outline-dark px-4 py-2">
+                QnA <span class="badge bg-dark">{{ qna_count }}</span>
+            </a> {% endcomment %}
+        </div>
+    </div>
+
+    <div id="allReviewBox" class="container mt-4 mb-5 text-start"></div>
 </div>
+
 <div class="scroll-to-top" onclick="scrollToTop()">&#8679;</div>
 {{ quantities|json_script:"productQuantities" }}
 {% endblock content %}
 
 {% block script %}
 <script src="{% static 'shop/js/details.js' %}"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const btn = document.getElementById('loadAllReviews');
+    const reviewBox = document.getElementById('allReviewBox');
 
+    if (btn) {
+        btn.addEventListener('click', function () {
+            const productId = "{{ product.id }}";
+            fetch(`/community/review_list/${productId}/`)
+                .then(response => response.json())
+                .then(data => {
+                    reviewBox.innerHTML = data.html;
+                    btn.style.display = 'none';
+                })
+                .catch(error => {
+                    console.error("리뷰 로딩 실패:", error);
+                    reviewBox.innerHTML = '<p class="text-danger">리뷰를 불러오는데 실패했습니다.</p>';
+                });
+        });
+    }
+});
+</script>
 {% endblock script %}

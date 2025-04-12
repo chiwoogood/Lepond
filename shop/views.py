@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST, require_GET
 from django.http import JsonResponse
 from .models import Product, Cart, CartItem, ProductCategory
+from community.models import Review, Qna
 from django.contrib import messages
 
 
@@ -54,9 +55,7 @@ def get_filtered_items(request):
 
 def details(request, pk):
     product = get_object_or_404(Product, pk=pk)
-
     quantities_qs = product.quantities.select_related('color', 'size')
-
     quantities = [
         {
             'color': str(q.color.id),
@@ -66,12 +65,23 @@ def details(request, pk):
         for q in quantities_qs
     ]
 
+    reviews = Review.objects.filter(product=product).order_by('-created_at')[:5]
+    qnas = Qna.objects.filter(product=product).order_by('-created_at')[:5]
+
     context = {
         'product': product,
         'quantities': quantities,
+        'reviews': reviews,
+        'qnas': qnas,
+        'review_count': Review.objects.filter(product=product).count(),
+        'qna_count': Qna.objects.filter(product=product).count(),
     }
+
     return render(request, 'shop/details.html', context)
-    
+
+
+
+
 
 @login_required
 def add_cart(request, pk):
