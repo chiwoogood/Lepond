@@ -11,7 +11,7 @@ from django.contrib import messages
 def items(request):
     categories = ProductCategory.objects.all()
     products_list = Product.objects.filter(is_active=True).order_by('-created_at')
-    paginator = Paginator(products_list, 6)
+    paginator = Paginator(products_list, 9)
     page_number = request.GET.get('page')
     products = paginator.get_page(page_number)
 

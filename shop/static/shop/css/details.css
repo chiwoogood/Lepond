@@ -4,7 +4,8 @@
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     align-items: start;
-    margin-top: 80px;
+    max-width: 1000px;
+    margin: 80px auto 0 auto; /* 가운데 정렬 */
 }
 
 @media (max-width: 1024px) {

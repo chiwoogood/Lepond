@@ -73,7 +73,7 @@ class ProductThumbnail(models.Model):
 
             # ⬇ 이미지 메모리 저장 후 덮어쓰기
             buffer = BytesIO()
-            img.save(fp=buffer, format='JPEG', quality=90)
+            img.save(fp=buffer, format='JPEG', quality=93)
             file_content = ContentFile(buffer.getvalue())
             self.image.save(self.image.name, file_content, save=False)
 
