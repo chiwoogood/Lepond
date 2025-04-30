@@ -6,7 +6,37 @@
 {% endblock head %}
 
 {% block content %}
-
+<div class="order-wrapper">
+    <h2 class="order-title">주문 내역</h2>
+  
+    <div class="order-list">
+      <div class="order-item">
+        <div class="order-header">
+          <div class="order-info">
+            <span class="order-number">주문번호: 202404301234</span>
+            <span class="order-date">2024-04-30</span>
+          </div>
+          <span class="order-status">배송 완료</span>
+        </div>
+  
+        <div class="order-body">
+          <div class="product-image">
+            <img src="{% static 'images/sample.jpg' %}" alt="상품 이미지">
+          </div>
+          <div class="product-info">
+            <h3>코튼 셔츠</h3>
+            <p>옵션: 블루 / M</p>
+            <p class="price">₩49,000</p>
+          </div>
+          <div class="order-actions">
+            <button class="btn-detail">상세보기</button>
+          </div>
+        </div>
+      </div>
+  
+      <!-- 더 많은 주문 반복 가능 -->
+    </div>
+  </div>
 {% endblock content %}
 
 {% block script %}

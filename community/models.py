@@ -90,3 +90,16 @@ class ReviewImage(models.Model):
 
     def __str__(self):
         return f"리뷰 ID {self.review.id} - 이미지"
+    
+class ReviewComment(models.Model):
+    review = models.ForeignKey(Review, on_delete=models.CASCADE, related_name="comments", verbose_name="리뷰")
+    content = models.TextField(verbose_name="댓글 내용")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="작성일")
+
+    class Meta:
+        verbose_name = "리뷰 댓글"
+        verbose_name_plural = "리뷰 댓글 목록"
+        ordering = ['created_at']
+
+    def __str__(self):
+        return f"리뷰 ID {self.review.id}"

@@ -143,11 +143,14 @@ class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name="items", verbose_name="장바구니")
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="제품")
     selected_color = models.ForeignKey(ProductColor, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="선택한 색깔")
+    selected_size = models.ForeignKey(ProductSize, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="선택한 사이즈")
+    quantity = models.PositiveIntegerField(default=1, verbose_name="수량")
 
     def __str__(self):
-        if self.cart.user:
-            return f"{self.cart.user.username} - {self.product.name}"
-        return f"세션 {self.cart.session_key} - {self.product.name}"
+        return f"{self.cart.user or self.cart.session_key} - {self.product.name} x {self.quantity}"
 
     def total_price(self):
-        return self.product.price
+        return self.product.price * self.quantity
+
+    class Meta:
+        unique_together = ('cart', 'product', 'selected_color', 'selected_size')

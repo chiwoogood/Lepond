@@ -95,6 +95,10 @@ def address(request):
 
 @login_required
 def user_address_add(request):
+    if Address.objects.filter(user=request.user).count() >= 3:
+        messages.warning(request, '배송지는 최대 3개까지만 등록할 수 있습니다.')
+        return redirect('users:address')
+
     if request.method == 'POST':
         form = AddressForm(request.POST)
         if form.is_valid():
@@ -103,9 +107,11 @@ def user_address_add(request):
             if not Address.objects.filter(user=request.user).exists():
                 address.is_default = True
             address.save()
+            messages.success(request, '새로운 배송지가 추가되었습니다.')
             return redirect('users:address')
     else:
         form = AddressForm()
+
     return render(request, 'users/address_form.html', {'form': form})
 
 @login_required
@@ -115,6 +121,7 @@ def user_address_update(request, pk):
         form = AddressForm(request.POST, instance=address)
         if form.is_valid():
             form.save()
+            messages.success(request, '배송지의 주소가 변경되었습니다.')
             return redirect('users:address')
     else:
         form = AddressForm(instance=address)
@@ -125,6 +132,7 @@ def user_address_delete(request, pk):
     address = get_object_or_404(Address, pk=pk, user=request.user)
     if request.method == 'POST':
         address.delete()
+        messages.success(request, '선택한 배송지가 삭제되었습니다.')
         return redirect('users:address')
     return render(request, 'users/address_confirm_delete.html', {'address': address})
 
@@ -134,7 +142,9 @@ def user_address_set_default(request, pk):
     Address.objects.filter(user=request.user, is_default=True).update(is_default=False)
     address.is_default = True
     address.save()
+    messages.success(request, '기본 배송지가 설정되었습니다.')
     return redirect('users:address')
+
 
 
 @login_required

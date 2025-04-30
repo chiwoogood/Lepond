@@ -22,7 +22,7 @@ class Address(models.Model):
     extraAddress = models.CharField(max_length=255, blank=True, null=True, verbose_name="참고주소")
     detailAddress = models.CharField(max_length=255, blank=True, null=True, verbose_name="상세주소")
     postcode = models.CharField(max_length=20, verbose_name="우편번호")
-    is_default = models.BooleanField(default=False, verbose_name="기본 배송지")  # ← 이 줄 추가
+    is_default = models.BooleanField(default=False, verbose_name="기본 배송지") 
 
     def __str__(self):
         return f"{self.roadAddress} ({self.postcode})"

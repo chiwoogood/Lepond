@@ -6,7 +6,41 @@
 {% endblock head %}
 
 {% block content %}
+<div class="community-wrapper">
+    <h2 class="community-title">MyCommunity</h2>
+  
+    <div class="table-scroll">
+      <table class="community-table">
+        <thead>
+          <tr>
+            <th>날짜</th>
+            <th>문의 유형</th>
+            <th>제목</th>
+            <th>답변 상태</th>
 
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>2024-04-28</td>
+            <td>상품 문의</td>
+            <td>사이즈가 정사이즈인가요?</td>
+            <td class="answered">답변 완료</td>
+
+          </tr>
+          <tr>
+            <td>2024-04-21</td>
+            <td>배송 문의</td>
+            <td>언제 발송되나요?</td>
+            <td class="pending">답변 대기</td>
+
+          </tr>
+          <!-- 추가 행들 반복 -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
 {% endblock content %}
 
 {% block script %}

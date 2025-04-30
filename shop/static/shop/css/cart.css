@@ -1,7 +1,10 @@
 .cart-wrapper {
+    width: 70vw;
     max-width: 960px;
+    min-width: 320px;
     margin: 80px auto;
     padding: 40px 30px;
+    transition: width 0.3s ease-in-out;
 }
 
 .cart-title {
@@ -118,8 +121,18 @@
     margin-top: 60px;
 }
 
+/* 반응형 조정 */
+@media (max-width: 1024px) {
+    .cart-wrapper {
+        width: 85vw;
+    }
+}
 
 @media (max-width: 768px) {
+    .cart-wrapper {
+        width: 95vw;
+    }
+
     .cart-item {
         flex-direction: column;
         text-align: center;
@@ -127,5 +140,12 @@
 
     .cart-bottom {
         align-items: center;
+    }
+}
+
+@media (max-width: 576px) {
+    .cart-wrapper {
+        width: 100vw;
+        padding: 30px 15px;
     }
 }
