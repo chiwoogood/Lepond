@@ -81,8 +81,6 @@ def details(request, pk):
 
 
 
-
-
 @login_required
 def add_cart(request, pk):
     product = get_object_or_404(Product, pk=pk)

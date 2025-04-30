@@ -7,20 +7,70 @@
 
 .list-container .row {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);  /* 데스크탑은 3열 */
     gap: 20px;
 }
 
 @media (max-width: 1024px) {
     .list-container .row {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, 1fr);  /* 태블릿은 2열 */
     }
 }
 
 @media (max-width: 768px) {
     .list-container .row {
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(1, 1fr);  /* 모바일은 1열 */
     }
+}
+
+.product-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-img-top {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.card-body {
+    padding: 10px;
+}
+
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.card-price {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 3px;
+}
+
+.card-status {
+    font-size: 12px;
+    color: #999;
+}
+
+.add-to-cart-btn {
+    margin-top: 10px;
+    padding: 8px 16px;
+    font-size: 14px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #333;
 }
 
 .category {

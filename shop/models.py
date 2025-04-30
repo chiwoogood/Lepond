@@ -39,7 +39,7 @@ class Product(models.Model):
         return self.name
 
 class ProductThumbnail(models.Model):
-    product = models.ForeignKey(Product, related_name='thumbnails', on_delete=models.CASCADE)
+    product = models.ForeignKey('Product', related_name='thumbnails', on_delete=models.CASCADE)
     image = models.ImageField(upload_to="product_thumbnails/", verbose_name="썸네일 이미지")
 
     def save(self, *args, **kwargs):
@@ -49,10 +49,31 @@ class ProductThumbnail(models.Model):
             if img.mode in ("RGBA", "P"):
                 img = img.convert("RGB")
 
-            img.thumbnail((480, 720))
+            width, height = img.size
+            target_ratio = 4 / 5
+            current_ratio = width / height
 
+            # ⬇ 중앙 기준 4:5 비율로 크롭
+            if current_ratio > target_ratio:
+                # 가로가 길 경우 → 가로 잘라냄
+                new_width = int(height * target_ratio)
+                left = (width - new_width) // 2
+                top = 0
+                img = img.crop((left, top, left + new_width, top + height))
+            elif current_ratio < target_ratio:
+                # 세로가 길 경우 → 세로 잘라냄
+                new_height = int(width / target_ratio)
+                top = (height - new_height) // 2
+                left = 0
+                img = img.crop((left, top, left + width, top + new_height))
+            # 이미 4:5 비율이면 크롭 생략
+
+            # ⬇ 400x500으로 리사이징
+            img = img.resize((400, 500), Image.Resampling.LANCZOS)
+
+            # ⬇ 이미지 메모리 저장 후 덮어쓰기
             buffer = BytesIO()
-            img.save(fp=buffer, format='JPEG', quality=92) 
+            img.save(fp=buffer, format='JPEG', quality=90)
             file_content = ContentFile(buffer.getvalue())
             self.image.save(self.image.name, file_content, save=False)
 

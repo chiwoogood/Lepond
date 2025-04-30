@@ -1,15 +1,16 @@
+/* 상세 페이지 그리드 레이아웃 (1:1 비율로 수정) */
 .product-details {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
     align-items: start;
-    margin-top: 80px; 
+    margin-top: 80px;
 }
 
 @media (max-width: 1024px) {
     .product-details {
-        margin-top: 70px;
         grid-template-columns: 1fr;
+        margin-top: 70px;
     }
 }
 
@@ -19,47 +20,56 @@
     }
 }
 
+/* Swiper 컨테이너 */
 .swiper {
     width: 100%;
-    max-height: 600px;
-    overflow: hidden; 
-    border-radius: 10px; 
+    max-width: 600px; /* 원하는 크기로 조정 가능 */
+    aspect-ratio: 4 / 5;
+    margin: auto;
+    position: relative;
 }
 
-.swiper-wrapper {
-    border-radius: 10px;
+/* Swiper 슬라이드 (페이드 효과 대응) */
+.swiper-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+    overflow: hidden;
 }
 
+.swiper-slide.swiper-slide-active {
+    opacity: 1 !important;
+    z-index: 2;
+}
+
+/* 슬라이드 이미지 */
 .swiper-slide img {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 6px;
 }
 
-.swiper-button-next, .swiper-button-prev {
-    color: white;
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
-}
-
-.swiper-button-next:hover, .swiper-button-prev:hover {
-    transform: scale(1.2);
-    opacity: 0.9;
-}
-
+/* 상품 정보 영역 */
 .product-info {
     background: white;
     padding: 20px;
     border-radius: 10px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
+/* 상품 설명 */
 .product-description {
     background: #f8f9fa;
     padding: 20px;
@@ -69,6 +79,7 @@
     margin: 20px auto;
 }
 
+/* 착용샷 컨테이너 */
 .wearing-shots-container {
     max-width: 1200px;
     width: 100%;
@@ -76,20 +87,23 @@
     text-align: center;
 }
 
+/* 착용샷 그리드 */
 .wearing-shots {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
+    justify-items: center;
 }
 
 .wearing-shots img {
-    max-width: 100%;
-    height: auto;
-    max-height: 800px;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
     border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
+/* 반응형: 모바일 대응 */
 @media (max-width: 768px) {
     .swiper {
         max-height: 400px;
