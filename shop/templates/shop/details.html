@@ -5,51 +5,7 @@
 <link rel="stylesheet" href="{% static 'shop/css/details.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-<style>
-    .accordion {
-      width: 100%;
-      margin: 10px 0;
-    }
 
-    .accordion-item{
-        border: none;
-    }
-
-    .accordion-header {
-        padding: 5px 5px;
-        border-radius: 6px;
-        transition: background-color 0.3s ease;
-    }
-
-    .accordion-header:hover {
-        background-color: #f5f5f5;
-    }
-
-    .accordion-header::before,
-    .accordion-header.active::before {
-        content: none;
-    }
-
-
-    .accordion-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.4s ease;
-        padding: 0 20px;
-        background-color: #fafafa;
-        border-radius: 6px;
-        margin-bottom: 10px;
-    }
-
-
-    .accordion-content p {
-
-    }
-    .accordion-header.active + .accordion-content {
-
-    }
-    
-  </style>
 {% endblock head %}
 
 {% block content %}
@@ -95,7 +51,7 @@
                 <input type="hidden" name="next" value="{{ request.get_full_path }}">
                 <input type="hidden" name="color_id" id="color_id">
                 <input type="hidden" name="size_id" id="size_id">
-                <button id="cartBtn" type="submit" class="btn btn-white w-100 mb-2" disabled>Cart 🛒</button>
+                <button id="cartBtn" type="submit" class="btn btn-white w-100 mb-2" disabled>Cart</button>
             </form>
             <button id="buyBtn" class="btn btn-white w-100" disabled>Buy</button>
             <div class="accordion">
@@ -124,7 +80,14 @@
         </div>
     </div>
 
-    {% comment %} <img src="{% static  %}"> {% endcomment %}
+    <div class="logo-container">
+        <img src="{% static 'images/logo.png' %}">
+    </div>
+
+    <div class="instruction-container">
+        <p>{{ product.details.instruction }}</p>
+    </div>
+
 
     <div class="thumbnail-container">
         <div class="thumbnail-images">
@@ -139,6 +102,12 @@
     <div class="instruction-container">
         <p></p>
     </div>
+
+
+    <div class="logo-container">
+        <img src="{% static 'images/logo.png' %}">
+    </div>
+    
 
     <div class="wearing-shots-container">
         <div class="wearing-shots">
@@ -164,7 +133,13 @@
         </div>
     </div>
 
+    <div class="logo-container">
+        <img src="{% static 'images/logo.png' %}">
+    </div>
+
     <div id="allReviewBox" class="container mt-4 mb-5 text-start"></div>
+
+
 </div>
 
 <div class="scroll-to-top" onclick="scrollToTop()">&#8679;</div>
@@ -202,7 +177,7 @@ document.addEventListener('DOMContentLoaded', function () {
       header.addEventListener('click', () => {
         const isActive = header.classList.contains('active');
         
-        // 모든 아코디언 닫기
+
         headers.forEach(h => {
           h.classList.remove('active');
           const content = h.nextElementSibling;

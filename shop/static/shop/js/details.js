@@ -59,3 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
     colorSelect.addEventListener("change", checkStock);
     sizeSelect.addEventListener("change", checkStock);
 });
+
+
+
+

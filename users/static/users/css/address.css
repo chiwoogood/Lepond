@@ -79,7 +79,7 @@
     background-color: #f2f2f2;
 }
 
-/* 수정/삭제 버튼 정렬 */
+
 .action-buttons {
     display: flex;
     justify-content: flex-start;
@@ -87,7 +87,7 @@
     flex-wrap: wrap;
 }
 
-/* 기본 배송지로 설정 버튼 오른쪽 정렬 */
+
 .set-default-form {
     position: absolute;
     top: 1.5rem;
@@ -98,7 +98,7 @@
     width: auto;
 }
 
-/* 하단 새 주소 추가 버튼 */
+
 .add-address-wrapper {
     margin-top: 2rem;
     padding-top: 1rem;
