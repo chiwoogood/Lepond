@@ -63,3 +63,33 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+document.addEventListener('DOMContentLoaded', function () {
+    const realSelect = document.getElementById('color');
+    const customSelect = document.getElementById('custom-color-select');
+    const selected = customSelect.querySelector('.selected');
+    const optionsContainer = customSelect.querySelector('.options-container');
+    const options = optionsContainer.querySelectorAll('.option');
+  
+    selected.addEventListener('click', () => {
+      customSelect.classList.toggle('active');
+      optionsContainer.classList.toggle('d-none');
+    });
+  
+    options.forEach(option => {
+      option.addEventListener('click', () => {
+        const value = option.getAttribute('data-value');
+        const text = option.textContent;
+        selected.textContent = text;
+        realSelect.value = value;
+        customSelect.classList.remove('active');
+        optionsContainer.classList.add('d-none');
+      });
+    });
+  
+    document.addEventListener('click', (e) => {
+      if (!customSelect.contains(e.target)) {
+        customSelect.classList.remove('active');
+        optionsContainer.classList.add('d-none');
+      }
+    });
+  });

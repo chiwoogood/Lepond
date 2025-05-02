@@ -60,6 +60,71 @@
     border-radius: 6px;
 }
 
+@media (max-width: 768px) {
+    .swiper-slide img {
+        object-fit: contain;
+    }
+}
+
+
+.custom-select {
+    position: relative;
+    background: linear-gradient(145deg, #ffffff, #f4f4f4);
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 6px 6px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .custom-select:hover {
+    border-color: gray;
+    box-shadow: 0 4px 12px rgba(108, 92, 231, 0.15);
+  }
+  
+  .custom-select .selected::after {
+    content: '▼';
+    float: right;
+    font-size: 14px;
+    color: #999;
+    transition: transform 0.3s ease;
+  }
+  
+  .custom-select.active .selected::after {
+    transform: rotate(180deg);
+  }
+  
+  .options-container {
+    position: absolute;
+    top: 105%;
+    left: 0;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  .option {
+    padding: 10px 15px;
+    transition: background 0.2s;
+    cursor: pointer;
+  }
+  
+  .option:hover {
+    background-color: #f7f7f7;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-5px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+
 .accordion {
     width: 100%;
     margin: 10px 0;
@@ -147,27 +212,22 @@
 
 
 .thumbnail-container {
-    max-width: 1200px;
-    width: 100%;
-    margin: 40px auto;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
 }
 
 
 .thumbnail-images {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    justify-items: center;
-    margin: 0 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
 }
 
 .thumbnail-images img {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    max-width: 100%;
+    width: 600px;
 }
 
 

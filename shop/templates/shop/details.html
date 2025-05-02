@@ -30,21 +30,24 @@
             <h2 class="fw-bold">{{ product.name }}</h2>
             <p class="fw-bold">{{ product.price }} 원</p>
 
-            <label for="color" class="form-label">Color</label>
-            <select id="color" class="form-select mb-3">
-                <option value="">색상 선택</option>
-                {% for color in product.colors.all %}
-                    <option value="{{ color.id }}">{{ color.color }}</option>
-                {% endfor %}
-            </select>
+            <div class="custom-select" id="custom-color-select">
+                <div class="selected">Color</div>
+                <div class="options-container d-none">
+                    {% for color in product.colors.all %}
+                        <div class="option" data-value="{{ color.id }}">{{ color.color }}</div>
+                    {% endfor %}
+                </div>
+            </div>
 
-            <label for="size" class="form-label">Size</label>
-            <select id="size" class="form-select mb-3">
-                <option value="">사이즈 선택</option>
-                {% for size in product.sizes.all %}
-                    <option value="{{ size.id }}">{{ size.size }}</option>
-                {% endfor %}
-            </select>
+
+            <div class="custom-select" id="custom-color-select">
+                <div class="selected">Size</div>
+                <div class="options-container d-none">
+                    {% for size in product.sizes.all %}
+                        <div class="option" data-value="{{ size.id }}">{{ size.size }}</div>
+                    {% endfor %}
+                </div>
+            </div>
 
             <form method="POST" action="{% url 'shop:add_cart' product.id %}">
                 {% csrf_token %}
@@ -120,7 +123,9 @@
         </div>
     </div>
 
-
+    <div class="logo-container">
+        <img src="{% static 'images/logo.png' %}">
+    </div>
 
     <div class="container my-5 text-center">
         <div class="d-flex justify-content-center gap-3">
@@ -133,8 +138,15 @@
         </div>
     </div>
 
-    <div class="logo-container">
-        <img src="{% static 'images/logo.png' %}">
+    <div class="container my-5 text-center">
+        <div class="d-flex justify-content-center gap-3">
+            <button id="loadAllReviews" class="btn btn-outline-dark px-4 py-2">
+                Q&A <span class="badge bg-dark">{{ qna_count }}</span>
+            {% comment %} </button>
+            <a href="{% url 'shop:qna_list' product.id %}" class="btn btn-outline-dark px-4 py-2">
+                QnA <span class="badge bg-dark">{{ qna_count }}</span>
+            </a> {% endcomment %}
+        </div>
     </div>
 
     <div id="allReviewBox" class="container mt-4 mb-5 text-start"></div>
@@ -148,6 +160,7 @@
 
 {% block script %}
 <script src="{% static 'shop/js/details.js' %}"></script>
+
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     const btn = document.getElementById('loadAllReviews');
