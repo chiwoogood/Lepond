@@ -5,6 +5,51 @@
 <link rel="stylesheet" href="{% static 'shop/css/details.css' %}">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
 <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+<style>
+    .accordion {
+      width: 100%;
+      margin: 10px 0;
+    }
+
+    .accordion-item{
+        border: none;
+    }
+
+    .accordion-header {
+        padding: 5px 5px;
+        border-radius: 6px;
+        transition: background-color 0.3s ease;
+    }
+
+    .accordion-header:hover {
+        background-color: #f5f5f5;
+    }
+
+    .accordion-header::before,
+    .accordion-header.active::before {
+        content: none;
+    }
+
+
+    .accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s ease;
+        padding: 0 20px;
+        background-color: #fafafa;
+        border-radius: 6px;
+        margin-bottom: 10px;
+    }
+
+
+    .accordion-content p {
+
+    }
+    .accordion-header.active + .accordion-content {
+
+    }
+    
+  </style>
 {% endblock head %}
 
 {% block content %}
@@ -53,18 +98,46 @@
                 <button id="cartBtn" type="submit" class="btn btn-white w-100 mb-2" disabled>Cart 🛒</button>
             </form>
             <button id="buyBtn" class="btn btn-white w-100" disabled>Buy</button>
-            <textarea style="resize: none;" class="form-control mb-3" rows="4" placeholder="※ 제주도 및 도서산간 지역의 경우, 기본 배송비 외에 추가 배송비가 발생할 수 있습니다. 추가 배송비는 지역 및 상품에 따라 상이하며, 결제 후 별도로 안내드릴 수 있습니다."></textarea>
+            <div class="accordion">
+                <div class="accordion">
+                    <div class="accordion-header"> + Ship</div>
+                    <div class="accordion-content">
+                      <p>※ 제주도 및 도서산간 지역의 경우, 기본 배송비 외에 추가 배송비가 발생할 수 있습니다. 추가 배송비는 지역 및 상품에 따라 상이하며, 결제 후 별도로 안내드릴 수 있습니다.</p>
+                    </div>
+                  
+                    <div class="accordion-header"> + Caution</div>
+                    <div class="accordion-content">
+                      <p>{{ product.details.caution }}</p>
+                    </div>
+
+                    <div class="accordion-header"> + Materials</div>
+                    <div class="accordion-content">
+                      <p>{{ product.details.material }}</p>
+                    </div>
+
+                    <div class="accordion-header"> + Size Guide</div>
+                    <div class="accordion-content">
+                      <p>{{ product.details.size_guide }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="wearing-shots-container">
-        <div class="wearing-shots">
+    <img src="{% static  %}">
+
+    <div class="thumbnail-container">
+        <div class="thumbnail-images">
             {% for thumb in product.thumbnails.all %}
                 <img src="{{ thumb.image.url }}" alt="{{ product.name }} 썸네일">
             {% empty %}
                 <p>썸네일 이미지가 없습니다.</p>
             {% endfor %}
         </div>
+    </div>
+
+    <div class="instruction-container">
+        <p></p>
     </div>
 
     <div class="wearing-shots-container">
@@ -77,6 +150,8 @@
             {% endfor %}
         </div>
     </div>
+
+
 
     <div class="container my-5 text-center">
         <div class="d-flex justify-content-center gap-3">
@@ -120,4 +195,31 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 </script>
+<script>
+    const headers = document.querySelectorAll('.accordion-header');
+
+    headers.forEach(header => {
+      header.addEventListener('click', () => {
+        const isActive = header.classList.contains('active');
+        
+        // 모든 아코디언 닫기
+        headers.forEach(h => {
+          h.classList.remove('active');
+          const content = h.nextElementSibling;
+          if (content && content.classList.contains('accordion-content')) {
+            content.style.maxHeight = null;
+          }
+        });
+    
+        // 클릭한 아코디언이 닫혀 있었으면 열기
+        if (!isActive) {
+          header.classList.add('active');
+          const content = header.nextElementSibling;
+          if (content && content.classList.contains('accordion-content')) {
+            content.style.maxHeight = content.scrollHeight + 'px';
+          }
+        }
+      });
+    });
+  </script>
 {% endblock script %}

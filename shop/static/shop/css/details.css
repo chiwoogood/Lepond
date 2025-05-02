@@ -1,11 +1,10 @@
-/* 상세 페이지 그리드 레이아웃 (1:1 비율로 수정) */
 .product-details {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
     align-items: start;
     max-width: 1000px;
-    margin: 80px auto 0 auto; /* 가운데 정렬 */
+    margin: 80px auto 0 auto;
 }
 
 @media (max-width: 1024px) {
@@ -21,16 +20,16 @@
     }
 }
 
-/* Swiper 컨테이너 */
+
 .swiper {
     width: 100%;
-    max-width: 600px; /* 원하는 크기로 조정 가능 */
+    max-width: 600px; 
     aspect-ratio: 4 / 5;
     margin: auto;
     position: relative;
 }
 
-/* Swiper 슬라이드 (페이드 효과 대응) */
+
 .swiper-slide {
     position: absolute;
     top: 0;
@@ -53,7 +52,7 @@
     z-index: 2;
 }
 
-/* 슬라이드 이미지 */
+
 .swiper-slide img {
     width: 100%;
     height: 100%;
@@ -61,7 +60,7 @@
     border-radius: 6px;
 }
 
-/* 상품 정보 영역 */
+
 .product-info {
     background: white;
     padding: 20px;
@@ -70,7 +69,7 @@
     box-sizing: border-box;
 }
 
-/* 상품 설명 */
+
 .product-description {
     background: #f8f9fa;
     padding: 20px;
@@ -80,23 +79,35 @@
     margin: 20px auto;
 }
 
-/* 착용샷 컨테이너 */
-.wearing-shots-container {
+.instruction-container {
+    max-width: 1000px;
+    width: 100%;
+    margin: 60px auto;
+    padding: 30px 20px;
+    font-size: 1rem;
+
+    color: #333;
+    box-sizing: border-box;
+}
+
+
+.thumbnail-container {
     max-width: 1200px;
     width: 100%;
     margin: 40px auto;
     text-align: center;
 }
 
-/* 착용샷 그리드 */
-.wearing-shots {
+
+.thumbnail-images {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
     justify-items: center;
+    margin: 0 70px;
 }
 
-.wearing-shots img {
+.thumbnail-images img {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
@@ -104,7 +115,32 @@
     box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-/* 반응형: 모바일 대응 */
+
+.wearing-shots-container {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+}
+
+.wearing-shots {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.wearing-shots img {
+    max-width: 100%;
+    width: 600px;
+}
+
+.wearing-shots p {
+    margin: 0;
+    font-size: 16px;
+    color: #444;
+    text-align: center;
+}
+
 @media (max-width: 768px) {
     .swiper {
         max-height: 400px;
