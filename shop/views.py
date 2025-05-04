@@ -55,6 +55,7 @@ def get_filtered_items(request):
 
 def details(request, pk):
     product = get_object_or_404(Product, pk=pk)
+
     quantities_qs = product.quantities.select_related('color', 'size')
     quantities = [
         {
@@ -65,16 +66,16 @@ def details(request, pk):
         for q in quantities_qs
     ]
 
-    reviews = Review.objects.filter(product=product).order_by('-created_at')[:5]
-    qnas = Qna.objects.filter(product=product).order_by('-created_at')[:5]
+    review_qs = Review.objects.filter(product=product).order_by('-created_at')
+    qna_qs = Qna.objects.filter(product=product).order_by('-created_at')
 
     context = {
         'product': product,
         'quantities': quantities,
-        'reviews': reviews,
-        'qnas': qnas,
-        'review_count': Review.objects.filter(product=product).count(),
-        'qna_count': Qna.objects.filter(product=product).count(),
+        'reviews': review_qs[:5],
+        'qnas': qna_qs[:5],
+        'review_count': review_qs.count(),
+        'qna_count': qna_qs.count(),
     }
 
     return render(request, 'shop/details.html', context)

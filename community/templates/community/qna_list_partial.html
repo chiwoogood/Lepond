@@ -1,0 +1,12 @@
+{% for qna in qnas %}
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ qna.title }}</h5>
+      <p class="card-text">{{ qna.content|linebreaks }}</p>
+      <p class="mb-1">카테고리: <span class="badge bg-secondary">{{ qna.get_category_display }}</span></p>
+      <p class="text-muted">작성자: {{ qna.user.username }} / {{ qna.created_at|date:"Y-m-d H:i" }}</p>
+    </div>
+  </div>
+{% empty %}
+  <p class="text-muted">등록된 QnA가 없습니다.</p>
+{% endfor %}

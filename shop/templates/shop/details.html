@@ -13,23 +13,23 @@
     <div class="product-details">
         <div class="swiper mySwiper">
             <div class="swiper-wrapper">
-                {% if product.thumbnails.all %}
-                    {% for thumbnail in product.thumbnails.all %}
-                        <div class="swiper-slide">
-                            <img src="{{ thumbnail.image.url }}" alt="썸네일 이미지">
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    <div class="swiper-slide">
-                        <img src="https://dummyimage.com/900x700/ccc/000&text=No+Image" alt="기본 이미지">
-                    </div>
-                {% endif %}
+                {% for thumbnail in product.thumbnails.all %}
+                <div class="swiper-slide">
+                    <img src="{{ thumbnail.image.url }}" alt="썸네일 이미지">
+                </div>
+                {% endfor %}
             </div>
+            <div class="swiper-pagination"></div>
         </div>
+        
         <div class="product-info">
             <h2 class="fw-bold">{{ product.name }}</h2>
             <p class="fw-bold">{{ product.price }} 원</p>
 
+            <select id="color" class="d-none"></select>
+            <select id="size" class="d-none"></select>
+            
+            <!-- Color -->
             <div class="custom-select" id="custom-color-select">
                 <div class="selected">Color</div>
                 <div class="options-container d-none">
@@ -38,9 +38,9 @@
                     {% endfor %}
                 </div>
             </div>
-
-
-            <div class="custom-select" id="custom-color-select">
+            
+            <!-- Size -->
+            <div class="custom-select" id="custom-size-select">
                 <div class="selected">Size</div>
                 <div class="options-container d-none">
                     {% for size in product.sizes.all %}
@@ -137,10 +137,12 @@
             </a> {% endcomment %}
         </div>
     </div>
+    <div id="allReviewBox" class="container mt-4 mb-5 text-start"></div>
+
 
     <div class="container my-5 text-center">
         <div class="d-flex justify-content-center gap-3">
-            <button id="loadAllReviews" class="btn btn-outline-dark px-4 py-2">
+            <button id="loadAllQnas" class="btn btn-outline-dark px-4 py-2">
                 Q&A <span class="badge bg-dark">{{ qna_count }}</span>
             {% comment %} </button>
             <a href="{% url 'shop:qna_list' product.id %}" class="btn btn-outline-dark px-4 py-2">
@@ -148,10 +150,13 @@
             </a> {% endcomment %}
         </div>
     </div>
+    <div id="allQnABox" class="container mt-4 mb-5 text-start"><div>
 
-    <div id="allReviewBox" class="container mt-4 mb-5 text-start"></div>
 
 
+    <div class="logo-container">
+        <img src="{% static 'images/logo.png' %}">
+    </div>
 </div>
 
 <div class="scroll-to-top" onclick="scrollToTop()">&#8679;</div>
@@ -182,6 +187,28 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const qnaBtn = document.getElementById('loadAllQnas');
+        const qnaBox = document.getElementById('allQnABox');
+    
+        if (qnaBtn) {
+            qnaBtn.addEventListener('click', function () {
+                const productId = "{{ product.id }}";
+                fetch(`/community/qna_list/${productId}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        qnaBox.innerHTML = data.html;
+                        qnaBtn.style.display = 'none';
+                    })
+                    .catch(error => {
+                        console.error("QnA 로딩 실패:", error);
+                        qnaBox.innerHTML = '<p class="text-danger">QnA를 불러오는데 실패했습니다.</p>';
+                    });
+            });
+        }
+    });
 </script>
 <script>
     const headers = document.querySelectorAll('.accordion-header');

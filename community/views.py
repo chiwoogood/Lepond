@@ -97,6 +97,15 @@ def QnA_detail(request, pk):
     return render(request, 'community/qna_detail.html', {'qna': qna})
 
 
+def qna_list(request, product_id):
+    print('hihi')
+    product = get_object_or_404(Product, id=product_id)
+    qnas = Qna.objects.filter(product=product).order_by('-created_at')
+    html = render_to_string("community/qna_list_partial.html", {
+        "qnas": qnas, 
+    }, request=request)
+    return JsonResponse({"html": html})
+
 def review(request):
     reviews = Review.objects.select_related('product').all().order_by('-created_at')
     paginator = Paginator(reviews, 16)

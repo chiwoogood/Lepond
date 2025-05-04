@@ -10,6 +10,7 @@ urlpatterns = [
     path('QnA/', views.QnA, name='QnA'),
     path('QnA/form/', views.QnA_form, name='QnA_form'),
     path('QnA/form/<int:pk>/', views.QnA_detail, name='QnA_info'),
+    path('qna_list/<int:product_id>/', views.qna_list,name='qna_list'),
 
     path('review/', views.review, name='review'),
     path('review/form/', views.review_form, name='review_form'),
