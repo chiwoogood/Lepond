@@ -49,6 +49,10 @@ INSTALLED_APPS = [
     'django_celery_beat',
     'storages',
     'imagekit',
+    'django_otp',
+    'django_otp.plugins.otp_totp',
+    'two_factor',
+    'django_otp.plugins.otp_static',
 ]
 
 
@@ -102,6 +106,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_otp.middleware.OTPMiddleware',
 ]
 
 ROOT_URLCONF = 'lepond.urls'
@@ -200,7 +205,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-LOGIN_URL = '/users/signin/'
+
+LOGIN_URL = '/users/signin/' 
+LOGIN_REDIRECT_URL = 'main:main'  
+
 
 USE_S3 = os.getenv('USE_S3') == 'True'
 

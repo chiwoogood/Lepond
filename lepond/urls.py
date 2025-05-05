@@ -19,6 +19,8 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.shortcuts import render
+from users.admin_secure import secure_admin_site
+from two_factor.urls import urlpatterns as tf_urls
 
 
 def custom_404_test_view(request):
@@ -29,7 +31,8 @@ def custom_500_test_view(request):
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('secure-login/', include(tf_urls)), 
+    path('admin/', secure_admin_site.urls),  
     path('', include(('main.urls', 'main'), namespace='main')),
     path('users/', include(('users.urls', 'users'), namespace='users')), 
     path('shop/', include(('shop.urls', 'shop'), namespace='shop')), 
