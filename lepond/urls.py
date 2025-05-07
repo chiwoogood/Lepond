@@ -32,7 +32,7 @@ def custom_500_test_view(request):
 
 urlpatterns = [
     path('secure-login/', include(tf_urls)), 
-    path('admin/', secure_admin_site.urls),  
+    path('adminpage/', secure_admin_site.urls),  
     path('', include(('main.urls', 'main'), namespace='main')),
     path('users/', include(('users.urls', 'users'), namespace='users')), 
     path('shop/', include(('shop.urls', 'shop'), namespace='shop')), 

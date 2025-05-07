@@ -1,11 +1,7 @@
 from django.contrib import admin
-from .models import (
-    ProductCategory, Product, ProductThumbnail, ProductDetail,
-    ProductColor, ProductSize, ProductQuantity, ProductImage,
-    Cart, CartItem
-)
+from .models import ProductCategory, Product, ProductThumbnail, ProductDetail, ProductColor, ProductSize, ProductQuantity, ProductImage, Cart, CartItem
+from users.admin_secure import secure_admin_site
 
-@admin.register(ProductCategory)
 class ProductCategoryAdmin(admin.ModelAdmin):
     list_display = ("name", "order")
     list_editable = ("order",)
@@ -34,7 +30,6 @@ class ProductQuantityInline(admin.TabularInline):
     model = ProductQuantity
     extra = 2
 
-@admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
     list_display = ("name", "price", "mileage")
     search_fields = ("name",)
@@ -54,16 +49,20 @@ class ProductAdmin(admin.ModelAdmin):
         ProductQuantityInline,
     ]
 
-@admin.register(ProductQuantity)
 class ProductQuantityAdmin(admin.ModelAdmin):
     list_display = ("product", "color", "size", "stock")
 
-@admin.register(Cart)
 class CartAdmin(admin.ModelAdmin):
     list_display = ("user", "session_key", "created_at", "updated_at")
     search_fields = ("user__username", "session_key")
 
-@admin.register(CartItem)
 class CartItemAdmin(admin.ModelAdmin):
     list_display = ("cart", "product", "selected_color")
     search_fields = ("cart__user__username", "product__name")
+
+
+secure_admin_site.register(ProductCategory, ProductCategoryAdmin)
+secure_admin_site.register(Product, ProductAdmin)
+secure_admin_site.register(ProductQuantity, ProductQuantityAdmin)
+secure_admin_site.register(Cart, CartAdmin)
+secure_admin_site.register(CartItem, CartItemAdmin)
