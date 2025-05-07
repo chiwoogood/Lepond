@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import CustomUserCreationForm, AddressForm
-from .models import Address
+from .utils import encrypt_data, decrypt_data
+from .forms import CustomUserCreationForm, AddressForm, RefundBankForm
+from .models import Address, RefundBank
 from django.urls import reverse
 
 def signin(request):
@@ -43,13 +44,19 @@ def user_signup(request):
     if request.method == 'POST':
         user_form = CustomUserCreationForm(request.POST)
         address_form = AddressForm(request.POST)
+        refund_form = RefundBankForm(request.POST)
 
-        if user_form.is_valid() and address_form.is_valid():
+        if user_form.is_valid() and address_form.is_valid() and refund_form.is_valid():
             user = user_form.save()
+
             address = address_form.save(commit=False)
             address.user = user
             address.is_default = True
             address.save()
+
+            refund_bank = refund_form.save(commit=False)
+            refund_bank.user = user
+            refund_bank.save()
 
             messages.success(request, "회원가입이 완료되었습니다. 로그인해주세요.")
             return redirect('users:signin')
@@ -58,14 +65,17 @@ def user_signup(request):
     else:
         user_form = CustomUserCreationForm()
         address_form = AddressForm()
-    
+        refund_form = RefundBankForm()
+
     context = {
         'user_form': user_form,
         'address_form': address_form,
+        'refund_form': refund_form,
         'next': reverse('main:main'),
     }
 
     return render(request, 'users/signin.html', context)
+
 
 def user_signout(request):
     logout(request)

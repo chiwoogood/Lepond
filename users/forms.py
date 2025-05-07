@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-from .models import CustomUser, Address
+from .models import CustomUser, Address, RefundBank
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -18,8 +18,6 @@ class CustomUserCreationForm(UserCreationForm):
             'password2',
             'name',
             'phone_number',
-            'bank',
-            'bankAccount',
             'marketing_agree',
         ]
 
@@ -43,7 +41,10 @@ class AddressForm(forms.ModelForm):
 
 
 
-
+class RefundBankForm(forms.ModelForm):
+    class Meta:
+        model = RefundBank
+        fields = ['bank_name', 'account_number']
 
 
 class CustomUserChangeForm(UserChangeForm):
@@ -54,8 +55,6 @@ class CustomUserChangeForm(UserChangeForm):
             'email',
             'name',
             'phone_number',
-            'bank',
-            'bankAccount',
             'marketing_agree',
         ]
 

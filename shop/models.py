@@ -145,6 +145,7 @@ class ProductQuantity(models.Model):
     def __str__(self):
         return f"{self.product.name} - {self.color.color} / {self.size.size} : {self.stock}개"
 
+
 class Cart(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name="cart", verbose_name="사용자", null=True, blank=True)
     session_key = models.CharField(max_length=255, null=True, blank=True, verbose_name="세션 키")

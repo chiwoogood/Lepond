@@ -1,10 +1,9 @@
-from cryptography.fernet import Fernet
 from django.conf import settings
 
-cipher = Fernet(settings.ENCRYPTION_KEY)
 
-def encrypt_data(data: str) -> str:
-    return cipher.encrypt(data.encode()).decode()
 
-def decrypt_data(token: str) -> str:
-    return cipher.decrypt(token.encode()).decode()
+def encrypt_data(data: str) -> bytes:
+    return settings.FERNET.encrypt(data.encode())
+
+def decrypt_data(token: bytes) -> str:
+    return settings.FERNET.decrypt(token).decode()
