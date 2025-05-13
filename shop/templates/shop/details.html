@@ -26,8 +26,17 @@
             <h2 class="fw-bold">{{ product.name }}</h2>
             <p class="fw-bold">{{ product.price }} 원</p>
 
-            <select id="color" class="d-none"></select>
-            <select id="size" class="d-none"></select>
+            <select id="color" class="d-none">
+                {% for color in product.colors.all %}
+                <option value="{{ color.id }}">{{ color.color }}</option>
+                {% endfor %}
+            </select>
+            
+            <select id="size" class="d-none">
+                {% for size in product.sizes.all %}
+                <option value="{{ size.id }}">{{ size.size }}</option>
+                {% endfor %}
+            </select>
             
             <!-- Color -->
             <div class="custom-select" id="custom-color-select">

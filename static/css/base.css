@@ -2,7 +2,7 @@
     --bs-body-font-family: 'Noto Serif KR', 'Noto Serif', serif;
 } */
 
-@font-face {
+/* @font-face {
     font-family: 'Lepond';
     src: url('/static/fonts/Lepond.otf') format('opentype');
     font-weight: normal;
@@ -11,7 +11,7 @@
   
 :root {
     --bs-body-font-family: 'Lepond', serif;
-}
+} */
 
 
 * {
@@ -22,7 +22,7 @@
 
 html, body {
     height: 100%;
-    /* font-family: 'Noto Serif', serif !important; */
+    font-family: 'Noto Serif', serif !important;
     font-family: var(--bs-body-font-family);
     font-size: 16px; 
     line-height: 1.5; 
